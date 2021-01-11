@@ -297,6 +297,15 @@ class Equity:
         return self.name          
     
     def annual_performance(self):
+        """
+        Calculates the annual performance of the fund
+
+        Returns
+        -------
+        data_split_percentage : TYPE
+            DESCRIPTION.
+
+        """
         self.__make_data_available()
         
         input_data = self.data.copy()
