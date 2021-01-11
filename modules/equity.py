@@ -12,6 +12,7 @@ import general_functions
 import pandas as pd
 import constants
 import json
+import analysis_functions
 
 class Equity:
     def __init__(self, 
@@ -117,6 +118,7 @@ class Equity:
         """
         print('loaded historical data: ' + self.historical_data_filename)
         self.data = pd.read_json(self.historical_data_filename)
+        self.data = self.data.sort_index()
         #self.data.index.names = ['Date']
         pass
     
@@ -130,8 +132,11 @@ class Equity:
         None.
 
         """
+        
         print('saved historical data: ' + self.historical_data_filename)
         if(self.data.empty == False):
+            self.data = self.data.sort_index()
+
             self.data.to_json(self.historical_data_filename,date_format='epoch')
             self.saved_data_available = True
             self.saved_data_start_date = self.data.index[0].to_pydatetime()
@@ -178,6 +183,22 @@ class Equity:
         
         return self.data
     
+    def __make_data_available(self):
+        
+        #attempts to either load data locally or if not available requests it from the data source
+        if(self.saved_data_available):
+            self.new_request = False
+            if(self.data.empty):    #if not yet loaded, load
+                self.load_historical_data()
+            else:
+                pass #self.data contains the data
+                  
+        else:
+            self.__request_data()
+            self.new_request = True
+        
+        
+    
     def get_data(self,start_date = None,end_date = None):
         """
         Gets the historical data of the equity, either by making a request, using data in memory or loading it from storage.
@@ -197,19 +218,9 @@ class Equity:
         if(end_date == None):
             end_date = start_date
         
-        #attempts to either load data locally or if not available requests it from the data source
-        if(self.saved_data_available):
-            new_request = False
-            if(self.data.empty):    #if not yet loaded, load
-                self.load_historical_data()
-            else:
-                pass #self.data contains the data
-                  
-        else:
-            self.__request_data()
-            new_request = True
+        self.__make_data_available()
                  
-        data = self.data
+        data = self.data.copy()
         
         if(start_date == None and end_date == None):
             return data
@@ -238,13 +249,13 @@ class Equity:
 
             
                 
-        elif(self.saved_data_end_date < end_date and new_request == False):
+        elif(self.saved_data_end_date < end_date and self.new_request == False):
             #the end date is not in the saved data AND we haven't just done a request.
             
             self.__request_data()
             new_request = True
 
-            data = self.data
+            data = self.data.copy()
             
         if(self.saved_data_end_date < end_date and new_request == True):
             #if still out of range
@@ -283,7 +294,28 @@ class Equity:
         
 
     def __str__(self):
-        return self.name            
+        return self.name          
+    
+    def annual_performance(self):
+        self.__make_data_available()
+        
+        input_data = self.data.copy()
+        
+        start_year = input_data.index[0].year #may not be = to start date
+        end_year = input_data.index[-1].year #may not be = to start date
+    
+        start_new_year = datetime.datetime(start_year + 1,1,1)
+        end_new_year = datetime.datetime(end_year,1,1)
+        
+    
+        input_data = input_data[start_new_year:end_new_year]
+        data_split = general_functions.split_months(input_data, 12)
+        data_split_percentage = analysis_functions.percent_change_from_prev_item(data_split) - 1
+        
+        year_list = [date.year - 1 for date in data_split_percentage.index]
+        data_split_percentage.index = year_list
+        
+        return data_split_percentage
         
 class EquityDict(dict):
     def __init(self,*args, **kwargs):

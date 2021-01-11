@@ -170,6 +170,8 @@ def add_months(sourcedate, months):
     return datetime.date(year, month, day)
 
 
+
+
 def nearest(items, pivot):
     """
     Returns nearest item to 'pivot' that appears in a list of items. Is used to find the nearest date in a datetime_index
@@ -190,7 +192,10 @@ def nearest(items, pivot):
         DESCRIPTION.
 
     """
-    return min(items, key=lambda x: abs(x - pivot))
+    if pivot in items:
+        return pivot
+    else:
+        return min(items, key=lambda x: abs(x - pivot))
 
 def nearest_before(items, pivot):
     """

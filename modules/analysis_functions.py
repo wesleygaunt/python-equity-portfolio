@@ -5,7 +5,8 @@ Created on Sat Jul 25 19:06:04 2020
 @author: Test
 """
 import pandas as pd
-
+import general_functions
+from datetime import datetime
 FROM_FIRST_ITEM = 'first'
 FROM_PREV_ITEM = 'prev'
 
@@ -15,7 +16,7 @@ def percent_change_from_beginning(input_data):
     return percent_change(input_data,FROM_FIRST_ITEM)
     
 def percent_change_from_prev_item(input_data):
-    return percent_change(input_data,FROM_FIRST_ITEM)
+    return percent_change(input_data,FROM_PREV_ITEM)
     
     
 def percent_change(input_data, method = FROM_FIRST_ITEM):

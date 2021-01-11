@@ -10,7 +10,7 @@ import pandas as pd
 import constants
 import itertools  
 
-def line(data, show_plot = True, title = 'plot', axis = 'value'):
+def line(data, show_plot = True, title = 'plot', axis = 'value',muted = False):
     """
     
 
@@ -24,6 +24,7 @@ def line(data, show_plot = True, title = 'plot', axis = 'value'):
         DESCRIPTION. The default is 'plot'.
     axis : str, 'value' or 'percentage'
         DESCRIPTION. The default is 'value'.
+    muted: boolean
 
     Returns
     -------
@@ -66,7 +67,7 @@ def line(data, show_plot = True, title = 'plot', axis = 'value'):
     colors_cycle = itertools.cycle(palette)
     
     for name,color in zip(columns,colors_cycle):
-        fig.line(x = 'index',y = name, source = source, color = color,line_width=2,legend_label = name,name = name,alpha = 1,muted_alpha = 0.2)
+        fig.line(x = 'index',y = name, source = source, color = color,line_width=2,legend_label = name,name = name,alpha = 1,muted_alpha = 0.2,muted = muted)
     
     fig.legend.location = "top_left"
     fig.legend.click_policy="mute"

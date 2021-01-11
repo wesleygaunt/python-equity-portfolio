@@ -230,6 +230,7 @@ def request_hist_data(provider, provider_code, unit, start_date, end_date = None
         return None
     
     df = request_function(provider_code,  start_date,end_date)  #this might internally raise an error, but it will be printed and then suppressed.
+
     if(df is None):
         return None
         

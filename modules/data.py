@@ -4,7 +4,7 @@ This module creates equities and equity_dicts and populates them with data.
 Only the equities using the yahoo data source will be available on GitHub.
 """
 import equity
-
+#funds
 jupiter_uk_smaller_companies = equity.Equity(name = 'Jupiter UK Smaller Companies I ACC',ISIN='GB00B3LRRF45',provider='morningstar',provider_code='F00000OSWK]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
 legg_mason_japan = equity.Equity(ISIN = 'GB00B8JYLC77',name = 'Legg Mason If Japan Equity X Acc',provider = 'morningstar',provider_code = 'F00000PLVU]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
 baillie_american = equity.Equity(ISIN = 'GB0006061963',name = 'Baillie Gifford American B Acc',provider = 'morningstar',provider_code = 'F0GBR0506U]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
@@ -12,9 +12,7 @@ fidelity_global_tech = equity.Equity(ISIN = 'LU1033663649',name = 'Fidelity Glob
 liontrust_emerging_markets = equity.Equity(name = 'Liontrust Emerging Markets Fund C Acc',ISIN='GB00B8J6SV12',provider='morningstar',provider_code = 'F00000OWFH]2]0]FOGBR$$ALL',unit='GBP',equity_type='fund')
 smith_williamson_artificial_intelligence = equity.Equity(ISIN = 'IE00BYPF3314',name = 'Smith & Williamson Artificial Intelligence Z Acc',provider = 'morningstar',provider_code='F00000YYB5]2]0]FOGBR$$AL',unit = 'GBP',equity_type='fund')
 marlbourough_us_multicap = equity.Equity(ISIN = 'GB00B906QV32',name = 'Marlborough US Multi-Cap P Inc',provider = 'morningstar',provider_code = 'F00000PBEW]2]0]FOGBR$$ALL',equity_type='fund')
-
 guinness_sustainable_energy = equity.Equity(ISIN = 'IE00BFYV9L73',name = 'Guinness Sustainable Energy Y Acc',provider = 'morningstar',provider_code = 'F0000103JP]2]0]FOGBR$$ALL',equity_type='fund')
-
 hl_special_sit = equity.Equity(name = 'HL Multi-Manager Special Situations Trust M Acc',ISIN = 'GB00BVYV7593', provider='morningstar',provider_code='F00000VDJV]2]0]FOGBR$$ALL',unit = 'GBP', equity_type = 'fund')
 lf_lindsell_train_UK = equity.Equity(ISIN = 'GB00BJFLM156', name = 'LF Lindsell Train UK Equity D Acc',provider = 'morningstar',provider_code = 'F00000SS5D]2]0]FOGBR$$ALL',unit = 'GBP', equity_type='fund')
 hl_income_growth = equity.Equity(name = 'HL Multi-Manager Income Growth Trust M Acc',ISIN = 'GB00BVYV7601', provider='morningstar',provider_code='F00000VDJW]2]0]FOGBR$$ALL',unit = 'GBP', equity_type = 'fund')
@@ -33,6 +31,10 @@ legg_mason_japan_hedged = equity.Equity(name = 'Legg Mason If Japan Equity X  He
 artemis_us_smaller_companies = equity.Equity(name = 'Artemis US Smaller Companies I Acc' ,ISIN = 'GB00BMMV5766', provider='morningstar',provider_code='F00000U58R]2]0]FOGBR$$ALL',unit = 'GBP', equity_type = 'fund')
 pictet_robotics = equity.Equity(name = 'Pictet Robotics I Acc' ,ISIN = 'LU1316549283', provider='morningstar',provider_code='F00000WKOC]2]0]FOGBR$$ALL',unit = 'GBP', equity_type = 'fund')
 
+baillie_british_smaller_companies = equity.Equity(ISIN = 'GB0005931356',name = 'Baillie Gifford British Smaller Companies B Acc',provider = 'morningstar',provider_code = 'F0GBR04RNS]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
+
+
+#stocks
 ceres = equity.Equity(name = 'Ceres Power Holdings PLC',ISIN = 'GB00BG5KQW09',provider = 'morningstar',provider_code='0P00007YQ0]3]0]E0WWE$$ALL',unit = 'GBP',equity_type='stock')
 
 #yahoo data funds - provided as examples 
