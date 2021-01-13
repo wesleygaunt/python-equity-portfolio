@@ -21,8 +21,7 @@ When I started work on the project, the data for historical fund and share price
 ## Dependancies 
 The project was written in python 3.7.3 and requires the following modules:
 
-'''
-
+```python
 datetime
 bokeh
 pandas
@@ -33,4 +32,4 @@ io
 requests
 json
 numpy
-'''
+```
