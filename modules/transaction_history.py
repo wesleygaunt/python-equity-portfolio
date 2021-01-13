@@ -9,7 +9,7 @@ import datetime
 import equity
 import portfolio
 import numpy as np
-
+import analysis_functions
 __MINDATE = datetime.datetime(1900,1, 1)
 
 class TransactionHistory:
@@ -95,7 +95,7 @@ class TransactionHistory:
         self.__equity_type_check(new_equity)
         
         
-        self.equity_dict.add_equity(new_equity)
+        self.equity_dict.add(new_equity)
         if(price == None):
             price = new_equity.get_data(date,date).iloc[0][0] #will be in pence!
 
@@ -135,7 +135,7 @@ class TransactionHistory:
 
         """
         self.__equity_type_check(new_equity)
-        self.equity_dict.add_equity(new_equity)
+        self.equity_dict.add(new_equity)
         
         
         
@@ -464,7 +464,7 @@ class TransactionHistory:
             
         return portfolio_dict
     
-    def entire_percentage_change(self,final_date):
+    def percentage_change(self,final_date):
         portfolio_dict = self.portfolio_dict(final_date)
         dates = list(portfolio_dict.keys())
         dates.sort()
@@ -492,3 +492,7 @@ class TransactionHistory:
                     final_value = portfolio_data.iloc[-1]
             
         return data
+    
+    def annual_performance(self,final_date):
+        percentage_change = self.percentage_change(final_date)
+        return analysis_functions.annual_performance(percentage_change)

@@ -298,7 +298,7 @@ class Equity:
     
     def annual_performance(self):
         """
-        Calculates the annual performance of the fund
+        Calculates the annual performance of the equity
 
         Returns
         -------
@@ -308,23 +308,11 @@ class Equity:
         """
         self.__make_data_available()
         
-        input_data = self.data.copy()
         
-        start_year = input_data.index[0].year #may not be = to start date
-        end_year = input_data.index[-1].year #may not be = to start date
-    
-        start_new_year = datetime.datetime(start_year + 1,1,1)
-        end_new_year = datetime.datetime(end_year,1,1)
+        annual_performance = analysis_functions.annual_performance(self.data)
+
         
-    
-        input_data = input_data[start_new_year:end_new_year]
-        data_split = general_functions.split_months(input_data, 12)
-        data_split_percentage = analysis_functions.percent_change_from_prev_item(data_split) - 1
-        
-        year_list = [date.year - 1 for date in data_split_percentage.index]
-        data_split_percentage.index = year_list
-        
-        return data_split_percentage
+        return annual_performance
         
 class EquityDict(dict):
     def __init(self,*args, **kwargs):
@@ -338,7 +326,7 @@ class EquityDict(dict):
         key = general_functions.capitalize_and_underscore(key)
         return super(EquityDict,self).__getitem__(key)
     
-    def add_equity(self,arg):
+    def add(self,arg):
         """
         Adds an equity (or list of equities) to the EquityDict. Sets up the keys correctly.
 

@@ -69,7 +69,36 @@ def percent_change(input_data, method = FROM_FIRST_ITEM):
     
     
     return percent_data
+
+
+def annual_performance(input_data):
+    """
+    Calculates the annual performance of the data
+
+    Returns
+    -------
+    data_split_percentage : TYPE
+        DESCRIPTION.
+
+    """        
+    input_data = input_data.copy()
     
+    start_year = input_data.index[0].year #may not be = to start date
+    end_year = input_data.index[-1].year #may not be = to start date
+
+    start_new_year = datetime(start_year + 1,1,1)
+    end_new_year = datetime(end_year,1,1)
+    
+
+    input_data = input_data[start_new_year:end_new_year]
+    data_split = general_functions.split_months(input_data, 12)
+    data_split_percentage = percent_change_from_prev_item(data_split) - 1
+    
+    year_list = [date.year - 1 for date in data_split_percentage.index]
+    data_split_percentage.index = year_list
+    
+    return data_split_percentage
+
 
   
     

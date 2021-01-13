@@ -86,11 +86,10 @@ class Portfolio:
         None.
 
         """
-        equity_name = equity.name
-        new_equity = pd.Series({"units": 0}, name = equity_name)
+        
+        self.holdings.loc[equity.name] = 0
 
-        self.holdings = self.holdings.append(new_equity)#,ignore_index=True)
-        self.equity_dict.add_equity(equity)
+        self.equity_dict.add(equity)
    
     def __clean_portfolio(self):
         """
@@ -103,7 +102,7 @@ class Portfolio:
 
         """
         units_column = self.holdings['units']   
-        equities_with_no_units = units_column[units_column == 0].index.tolist() 
+        equities_with_no_units = units_column[units_column < 0.001].index.tolist() 
         
         if equities_with_no_units == []:
             return 
@@ -242,13 +241,13 @@ class Portfolio:
         """
         self[equity] = self[equity] + units_to_change
         
-        if(self[equity] <= 0.001):
-            del self[equity]
+        # if(self[equity] <= 0.001):
+        #     del self[equity]
         return
         
       
 
-    def get_holdings_data(self, start_date, end_date = None):
+    def get_holdings_data(self, start_date, end_date = None, total_column = True):
         """
         Gets the value data of all the holdings in the portfolio between the dates specified.
 
@@ -282,12 +281,14 @@ class Portfolio:
         
         portfolio_value_data.fillna(method = 'ffill', inplace = True)         #need to fill in the blanks
         
-        portfolio_value_data['TOTAL'] = portfolio_value_data.sum(axis = 1)
+        #add a sum column.
+        if(total_column):
+            portfolio_value_data['TOTAL'] = portfolio_value_data.sum(axis = 1)
         
         return portfolio_value_data
 
 
-    def get_data(self,start_date,end_date):#overrides the Equity.get_data_metho
+    def get_data(self,start_date,end_date):
         """
         Gets the historical data of the portfolio, either by making a request, using data in memory or loading it from storage.
 
@@ -303,7 +304,7 @@ class Portfolio:
         data : pandas.DataFrame
             Historical data dataframe.
         """
-        data = self.get_holdings_data(start_date,end_date)
+        data = self.get_holdings_data(start_date,end_date, total_column = True)
         data = data['TOTAL']
         self.data = data
         
@@ -322,6 +323,13 @@ class Portfolio:
             data = self.get_data(start_date, end_date)
             data = analysis_functions.percent_change_from_beginning(data)
             return data
+        
+    def annual_performance(start_date,end_date):
+        data = self.get_data(start_date,end_date)
+        
+        annual_performance_data = analysis_functions.annual_performance(data)
+        
+        return annual_performance_data
         
         
     def change_cash(self,value):

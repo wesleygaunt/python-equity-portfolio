@@ -5,6 +5,8 @@ Only the equities using the yahoo data source will be available on GitHub.
 """
 import equity
 #funds
+Halifax_FTSE100_Tracker = equity.Equity(name = 'Halifax UK FTSE 100 Index Tracking A',ISIN='GB00B3LRRF45',provider='morningstar',provider_code='F0GBR06I23]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
+
 jupiter_uk_smaller_companies = equity.Equity(name = 'Jupiter UK Smaller Companies I ACC',ISIN='GB00B3LRRF45',provider='morningstar',provider_code='F00000OSWK]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
 legg_mason_japan = equity.Equity(ISIN = 'GB00B8JYLC77',name = 'Legg Mason If Japan Equity X Acc',provider = 'morningstar',provider_code = 'F00000PLVU]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
 baillie_american = equity.Equity(ISIN = 'GB0006061963',name = 'Baillie Gifford American B Acc',provider = 'morningstar',provider_code = 'F0GBR0506U]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
@@ -30,6 +32,8 @@ FSSA_JAPAN_FOCUS = equity.Equity(name = 'FSSA Japan Focus B Hedged Acc' ,ISIN = 
 legg_mason_japan_hedged = equity.Equity(name = 'Legg Mason If Japan Equity X  Hedged Acc' ,ISIN = 'GB00B99C0657', provider='morningstar',provider_code='F00000PW2X]2]0]FOGBR$$ALL',unit = 'GBP', equity_type = 'fund')
 artemis_us_smaller_companies = equity.Equity(name = 'Artemis US Smaller Companies I Acc' ,ISIN = 'GB00BMMV5766', provider='morningstar',provider_code='F00000U58R]2]0]FOGBR$$ALL',unit = 'GBP', equity_type = 'fund')
 pictet_robotics = equity.Equity(name = 'Pictet Robotics I Acc' ,ISIN = 'LU1316549283', provider='morningstar',provider_code='F00000WKOC]2]0]FOGBR$$ALL',unit = 'GBP', equity_type = 'fund')
+morgan_stanley_us_growth = equity.Equity(name = 'Morgan Stanley US Growth IX' ,ISIN = 'LU0239688608', provider='morningstar',provider_code='F0000022LP]2]0]FOGBR$$ALL',unit = 'USD', equity_type = 'fund')
+
 
 baillie_british_smaller_companies = equity.Equity(ISIN = 'GB0005931356',name = 'Baillie Gifford British Smaller Companies B Acc',provider = 'morningstar',provider_code = 'F0GBR04RNS]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
 
@@ -50,7 +54,7 @@ all_equities = equity.EquityDict()
 for key in globals_dict:
     item = globals_dict[key]
     if(type(item) == equity.Equity):
-        all_equities.add_equity(item)
+        all_equities.add(item)
         #item.save_equity()
 del globals_dict   
 
@@ -58,13 +62,13 @@ funds = equity.EquityDict()
 for key in all_equities:
     eq = all_equities[key]
     if(eq.equity_type == 'fund'):  
-        funds.add_equity(eq)    
+        funds.add(eq)    
 
 stocks = equity.EquityDict()
 for key in all_equities:
     eq = all_equities[key]
     if(eq.equity_type == 'stock'):  
-        stocks.add_equity(eq)    
+        stocks.add(eq)    
 
 del eq
 
