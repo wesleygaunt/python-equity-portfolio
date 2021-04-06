@@ -32,7 +32,7 @@ def HL_import(filename,equities, initial_import = False):
         DESCRIPTION.
 
     """
-
+    
     HL_raw = pd.read_csv(filename)#,encoding = 'unicode_escape')
     equities_list = []
 
@@ -49,6 +49,10 @@ def HL_import(filename,equities, initial_import = False):
     HL_raw['Description'] = HL_raw['Description'].str.upper()
     
     
+    bank_net = 0
+    transfer_net = 0
+    
+    
     history = TransactionHistory()
     for index,transaction in HL_raw.iterrows():
         #print(index)
@@ -57,6 +61,16 @@ def HL_import(filename,equities, initial_import = False):
         transaction_type = transaction['Reference']
         value = transaction['Value (£)']
         description = transaction['Description']
+        
+        
+        
+        if(transaction_type == 'CARD WEB' or transaction_type == 'FPD'):
+                bank_net = bank_net + value
+                print(str(date) + " : " +transaction_type + " "+  description + " : " + str(value))
+        if(transaction_type == 'TRANSFER'):
+                transfer_net = transfer_net + value
+                print(str(date) + " : " +transaction_type + " "+  description + " : " + str(value))
+        
         
         if(transaction_type == 'TRANSFER' or transaction_type == 'CARD WEB'):
             history.add_cash(value,date)
@@ -111,4 +125,7 @@ def HL_import(filename,equities, initial_import = False):
     if(initial_import):
         return equities_list
     else:
+        print("bank_net: " + str(bank_net))
+        print("transfer_net: " + str(transfer_net))
+
         return history

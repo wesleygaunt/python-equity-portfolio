@@ -34,7 +34,7 @@ rightmove_period_percentage = analysis_functions.percent_change(rightmove_period
 
 #set up an EquityDict to hold multiple equities
 equity_dict = equity.EquityDict()
-equity_dict.add_equity([rightmove,astrazeneca,tesco])
+equity_dict.add([rightmove,astrazeneca,tesco])
 
 #can also set by dict methods, note how the name is reset
 equity_dict['key will be modified'] = shell

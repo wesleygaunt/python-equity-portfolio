@@ -8,16 +8,37 @@ The fund can be held in a portfolio, and plotted - same as a portfolio.
 from portfolio import Portfolio
 from equity import Equity
 import pandas as pd
-
-
+import general_functions
+import warnings
 class Fund(Portfolio,Equity):   #multiple inheritance
     def __init__(self,init_name):
-        Portfolio.__init__(self)
+        
+        
+        Portfolio.__init__(self, name = init_name)
         Equity.__init__(self,name = init_name,try_to_load=False)
+        
+        #del self._Equity__name
+
         
         del self.provider
         del self.provider_code
         del self.symbol
+    
+    
+    #override the name property. Was read only in equity.
+    def __get_name(self):
+        return self.__name
+    
+    def __set_name(self,name):
+        self.__name = name
+        pass
+    
+    """
+    name is read only, so has controls on it.
+    """
+    name = property(__get_name,__set_name)
+        
+    
         
     @classmethod
     def set_up_fund(cls,name, equity_dict, proportion_orginal,fund_launch_date):
@@ -57,7 +78,12 @@ class Fund(Portfolio,Equity):   #multiple inheritance
         
         return fund
     
-    
+
+    #override the save function from 
+    def save(self):
+        print("fund save method not yet implemented")
+        
+        
     def get_data(self,start_date,end_date):#overrides the Equity.get_data_metho
         """
         Gets the historical data of the fund, either by making a request, using data in memory or loading it from storage.

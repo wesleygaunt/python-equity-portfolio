@@ -11,12 +11,13 @@ import constants
 from datetime import datetime
 from HL_import import HL_import
 import plot 
+import transaction_history
 
 from data import HL_equities
 
 #############################################################################
 
-ISA_history = HL_import(filename = constants.DEFAULT_DATA_FOLDER + '\\ISA.csv',equities=HL_equities,initial_import = False)
+ISA_history = HL_import(filename = constants.DEFAULT_DATA_FOLDER + '\\LISA.csv',equities=HL_equities,initial_import = False)
 
 final_ISA = ISA_history.portfolio()
 

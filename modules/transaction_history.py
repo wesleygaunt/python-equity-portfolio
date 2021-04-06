@@ -101,7 +101,7 @@ class TransactionHistory:
 
         cash_value = -1 * units * price #negative as cash is going down
         
-        new_equity_name = str(new_equity)
+        new_equity_name = new_equity.name
         buy_transaction = {"equity": new_equity_name, 
                            "action":"buy_equity", 
                            "units": units,
@@ -142,7 +142,7 @@ class TransactionHistory:
         if(price == None):
             price = new_equity.get_close(date).iloc[0][0]  #will be in pence!
             
-        new_equity_name = str(new_equity)
+        new_equity_name = new_equity.name
 
         cash_value = units * price
         

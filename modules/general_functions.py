@@ -167,7 +167,7 @@ def add_months(sourcedate, months):
     year = sourcedate.year + month // 12
     month = month % 12 + 1
     day = min(sourcedate.day, calendar.monthrange(year,month)[1])
-    return datetime.date(year, month, day)
+    return datetime.datetime(year, month, day)
 
 
 

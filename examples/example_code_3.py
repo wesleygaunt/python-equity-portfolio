@@ -20,7 +20,7 @@ shell = data.shell
 
 equity_dict = equity.EquityDict()
 fund_launch_date = datetime.datetime(2018,1, 1)
-equity_dict.add_equity([rightmove,tesco])
+equity_dict.add([rightmove,tesco])
 proportions = {rightmove.name:1,tesco.name:2}
 fund_1 = Fund.set_up_fund('fund 1',equity_dict,proportions,fund_launch_date)
 

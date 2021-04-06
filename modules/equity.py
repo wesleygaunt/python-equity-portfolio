@@ -13,6 +13,9 @@ import pandas as pd
 import constants
 import json
 import analysis_functions
+from collections import UserDict
+import warnings
+
 
 class Equity:
     def __init__(self, 
@@ -67,7 +70,7 @@ class Equity:
             self.saved_data_start_date = constants.MIN_DATE
             self.saved_data_end_date = constants.MIN_DATE
             
-            self.save_equity()
+            self.save()
                                 
                
     
@@ -87,7 +90,7 @@ class Equity:
             del JSON_dict[name]
 
         return JSON_dict
-    def save_equity(self):
+    def save(self):
         """
         This saves the equity metadata (not the historical data) to a JSON so it can be loaded at a later time.
 
@@ -98,6 +101,7 @@ class Equity:
 
         """
         
+        print("equity.save")
 
         JSON_dict = self.get_JSON_dict()
         with open(self.equity_filename, 'w') as file:
@@ -141,7 +145,7 @@ class Equity:
             self.saved_data_available = True
             self.saved_data_start_date = self.data.index[0].to_pydatetime()
             self.saved_data_end_date = self.data.index[-1].to_pydatetime()
-            self.save_equity()
+            self.save()
         
         return
     
@@ -149,7 +153,7 @@ class Equity:
             return self.__name
     
     def __set_name(self,name):
-        print("Unable to modify name")
+        warnings.warn("Unable to modify the name: " + self.__name,category = UserWarning,stacklevel=4)
         pass
     
     """
@@ -291,10 +295,7 @@ class Equity:
         return data   
         
             
-        
-
-    def __str__(self):
-        return self.name          
+    
     
     def annual_performance(self):
         """
@@ -314,7 +315,7 @@ class Equity:
         
         return annual_performance
         
-class EquityDict(dict):
+class EquityDict(UserDict):
     def __init(self,*args, **kwargs):
         dict.__init__(*args, **kwargs)
         

@@ -6,6 +6,7 @@ import pandas as pd
 import warnings
 import equity
 import analysis_functions
+import general_functions
 
 class Portfolio:
     
@@ -14,7 +15,8 @@ class Portfolio:
         self.holdings = pd.DataFrame({"equity":[],"units":[]})
         self.holdings = self.holdings.set_index('equity')
         self.equity_dict = equity.EquityDict()
-        self.name = name
+        
+        self.name = general_functions.capitalize_and_underscore(name)
     
     
     #https://stackoverflow.com/questions/141545/how-to-overload-init-method-based-on-argument-type
