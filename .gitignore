@@ -126,9 +126,6 @@ dmypy.json
 modules/list_morningstar_funds.py
 modules/morningstar_data_request.py
 modules/ft_data_request.py
-history_test.py
-momentum_test.py
-HL_import_test.py
-equity_test.py
+
 modules/dependancies_all.py
 sandbox.py
