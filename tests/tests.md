@@ -1,0 +1,2 @@
+# tests
+Code snippets to test the functionality of the modules - for testing only, not guaranteed to work. For code examples see the [examples](https://github.com/wesleygaunt/python-equity-portfolio/blob/main/examples) directory. 
