@@ -12,7 +12,7 @@ def string_date_to_datetime(date):
     date = datetime(year = int(date[2]),month = int(date[1]), day = int(date[0]))
     return date
     
-def HL_import(filename,equities, initial_import = False):
+def hl_import(filename,equities, initial_import = False):
     """
     Imports a Hargreaves Lansdown portfolio history into a transaction_history 
     object.
