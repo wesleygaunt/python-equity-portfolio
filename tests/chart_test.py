@@ -23,14 +23,14 @@ import datetime
 
 #set up the equities
 rightmove = data.rightmove
-tesco = data.tesco
+# tesco = data.tesco
 #baillie_america
 
 
-ed = equity.EquityDict()
-ed.add([tesco,rightmove, data.baillie_american])
+# ed = equity.EquityDict()
+# ed.add([tesco,rightmove, data.baillie_american])
 
-ed = data.funds
+# ed = data.funds
 
 #get data, note as the data on 2020 12 5 is not available, the next available data point is returned.
 #rightmove_period = rightmove.get_data(start_date = dt.datetime(2000, 12, 22), end_date = dt.datetime(2020, 12, 5))
@@ -38,8 +38,8 @@ rightmove_data = rightmove.get_data()
 rightmove_data = analysis_functions.percent_change(rightmove_data)
 
 
-dict_data = ed.get_data(start_date = datetime.datetime(2000,1,1), end_date=datetime.datetime(2020,1,1))
-dict_data = analysis_functions.percent_change(dict_data)
+# dict_data = ed.get_data(start_date = datetime.datetime(2000,1,1), end_date=datetime.datetime(2020,1,1))
+# dict_data = analysis_functions.percent_change(dict_data)
 
 from chartWidget import chartWidget
 
@@ -47,19 +47,18 @@ from chartWidget import chartWidget
 #del rightmove
 
 class ChartDialog(QtWidgets.QDialog):
-    def __init__(self, data, parent = None):
+    def __init__(self, parent = None):
         super().__init__(parent = parent)
         self.resize(800, 500)
 
         self.gridLayout = QtWidgets.QGridLayout()
         
         self.chartWidget = chartWidget()
-        #self.chartWidget.setObjectName("chartWidget")
+        self.chartWidget.setObjectName("chartWidget")
         self.gridLayout.addWidget(self.chartWidget, 0, 0, 1, 1)
         
         self.setLayout(self.gridLayout)
         
-        self.chartWidget.set_data(data)
 
 
 
@@ -85,5 +84,6 @@ class ChartDialog(QtWidgets.QDialog):
         
 app = QtWidgets.QApplication([])
 #provide the objects as arguments to the dialog to see it working
-dialog = ChartDialog(rightmove_data)
+dialog = ChartDialog()
+dialog.chartWidget.set_data(rightmove_data)
 dialog.exec()
