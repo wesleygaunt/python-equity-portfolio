@@ -5,6 +5,9 @@ A collection of general use functions.
 import datetime
 import calendar
 
+from collections import abc
+
+
 def unix_date(date):   
     """
     Converts a datetime into a unix date
@@ -282,3 +285,22 @@ def split_months(data_full, months):
 
     data_interval = data_full.loc[dates_interval] #get split data
     return data_interval#,dates_interval
+
+def get_collection_items(collection):
+    #return the items in dict form - with the indexes as the keys for non-mapping types
+    if(isinstance(collection, abc.Mapping)): 
+        items =  collection
+            
+    elif(isinstance(collection, abc.Sequence)): 
+        #lists and tuples
+        item_keys = range(0,len(collection))
+        items = {str(item_key) : collection[item_key] for item_key in item_keys}
+    elif(isinstance(collection,abc.Set)):
+        #sets
+        item_keys = range(0,len(collection))
+        zip_items = zip(item_keys,collection)
+        items = {str(item_key) : item for item_key, item in zip_items}
+    else:
+        print("unknown collection type")
+        return
+    return items

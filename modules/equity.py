@@ -317,12 +317,15 @@ class Equity:
         
 class EquityDict(UserDict):
     def __init(self,*args, **kwargs):
-        dict.__init__(*args, **kwargs)
+        super(EquityDict,self).__init__(*args, **kwargs)
         
     def __setitem__(self, key, item):
-        key = item.name
-        key = general_functions.capitalize_and_underscore(key)
-        super(EquityDict,self).__setitem__(key,item)
+        if(type(item) == Equity):
+            key = item.name
+            key = general_functions.capitalize_and_underscore(key)
+            super(EquityDict,self).__setitem__(key,item)
+        else:
+            print("EquityDict only accepts equities")
     def __getitem__(self,key):
         key = general_functions.capitalize_and_underscore(key)
         return super(EquityDict,self).__getitem__(key)
@@ -345,12 +348,12 @@ class EquityDict(UserDict):
             self.__add_multiple(arg)
             return
         else:
-            self.__setitem__(arg.name,arg)
+            self.__setitem__("dummy_name",arg)
             return
 
     def __add_multiple(self,list_of_equities):
         for equity in list_of_equities:
-            self.__setitem__(equity.name,equity)
+            self.__setitem__("dummy_name",equity)
         return
     
     def __delitem__(self,key):
@@ -358,7 +361,7 @@ class EquityDict(UserDict):
         super(EquityDict,self).__delitem__(key)
         return
     
-    def get_data(self,start_date,end_date = None):
+    def get_data(self,start_date = None,end_date = None):
         """
         Gets the close data for all the equities contained in the EquityDict.
 
