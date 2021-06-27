@@ -12,7 +12,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import general_functions
 import time
-from data import marlbourough_us_multicap
+from data import jupiter_uk_smaller_companies as current_equity
 #equity_dict = equity.EquityDict()
 
 
@@ -61,40 +61,41 @@ from data import marlbourough_us_multicap
 start = datetime.datetime(2000, 1,1)
 end = datetime.datetime(2020, 11, 30)
 
-marlbourough_us_multicap.get_data(start_date = start, end_date = end)
+current_equity.get_data(start_date = start, end_date = end)
 
-#marlbourough_us_multicap.save_equity()
+#baillie_american.save_equity()
 
 print(0)
-data_0 = marlbourough_us_multicap.get_data()
+data_0 = current_equity.get_data()
 
 print(1)
 
 start_1 = datetime.datetime(year = 2016,month = 1,day = 11) #open
 end_1 = datetime.datetime(year = 2017,month = 10,day = 30) #open
-data_1 = marlbourough_us_multicap.get_data(start_date = start_1, end_date = end_1) #both open period
+data_1 = current_equity.get_data(start_date = start_1, end_date = end_1) #both open period
 
 print(2)
 
 start_2 = datetime.datetime(year = 2012,month = 5,day = 11)
 end_2 = datetime.datetime(year = 2012,month = 5,day = 11)
-data_2 = marlbourough_us_multicap.get_data(start_date = start_2, end_date = end_2) #open 1 day
+data_2 = current_equity.get_data(start_date = start_2, end_date = end_2) #open 1 day
 print(3)
 
 start_3 = datetime.datetime(year = 1970,month = 5,day = 11)
 end_3 = datetime.datetime(year = 2012,month = 5,day = 11)
-data_3 = marlbourough_us_multicap.get_data(start_date = start_3, end_date = end_3) #no start, open end
+data_3 = current_equity.get_data(start_date = start_3, end_date = end_3) #no start, open end
 
 print(4)
 
 start_4 = datetime.datetime(year = 2012,month = 5,day = 11)
 end_4 = datetime.datetime(year = 2024,month = 5,day = 11)
-data_4 = marlbourough_us_multicap.get_data(start_date = start_4, end_date = end_4) #start available, end in the future
+data_4 = current_equity.get_data(start_date = start_4, end_date = end_4) #start available, end in the future
 
 
 start_5 = datetime.datetime(year = 2020,month = 5,day = 11)
 end_5 = datetime.datetime(year = 2022,month = 5,day = 11)
-data_5 = marlbourough_us_multicap.get_data(start_date = start_5, end_date = None) #start available, end in the future
+data_5 = current_equity.get_data(start_date = start_5, end_date = None) #start available, end in the future
+
 
 
 

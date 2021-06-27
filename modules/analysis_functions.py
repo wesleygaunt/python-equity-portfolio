@@ -9,6 +9,7 @@ import general_functions
 from datetime import datetime
 FROM_FIRST_ITEM = 'first'
 FROM_PREV_ITEM = 'prev'
+FROM_DATE = 'date'
 
 
 
@@ -19,7 +20,7 @@ def percent_change_from_prev_item(input_data):
     return percent_change(input_data,FROM_PREV_ITEM)
     
     
-def percent_change(input_data, method = FROM_FIRST_ITEM):
+def percent_change(input_data, method = FROM_FIRST_ITEM, date = None):
     """
     Calculates the percent change of a series or dataframe. 
 
@@ -59,6 +60,15 @@ def percent_change(input_data, method = FROM_FIRST_ITEM):
             
             elif(method == FROM_PREV_ITEM):
                 percent_change = col.pct_change()
+                
+            elif(method == FROM_DATE):
+                if(date == None):   #same as FROM_FIRST_ITEM
+                     start_val = col.iloc[0]
+                else:
+                    nearest_date = general_functions.nearest(list(input_data.index),date)
+                    start_val = col.loc[nearest_date]
+                change = col - start_val
+                percent_change = change/start_val
             
             else:
                 return

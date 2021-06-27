@@ -226,7 +226,12 @@ class Equity:
                  
         data = self.data.copy()
         
-        if(start_date == None and end_date == None):
+        if(start_date == None and end_date == None): #empty request, return all possible
+        
+            # self.__request_data()
+            # new_request = True
+
+            # data = self.data.copy()
             return data
         
         

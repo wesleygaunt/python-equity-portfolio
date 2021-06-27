@@ -20,6 +20,7 @@ import equity
 import datetime
 
 import chartWidget
+#import chartdialog
 
 
 #set up the equities
@@ -39,7 +40,7 @@ rightmove_data = data.rightmove.get_data()
 rightmove_data = analysis_functions.percent_change(rightmove_data)
 
 ed_data = ed.get_data()
-#dict_data = analysis_functions.percent_change(dict_data)
+#dict_data =  analysis_functions.percent_change(dict_data)
 
 
 
@@ -67,7 +68,7 @@ app = QtWidgets.QApplication([])
 dialog = ChartDialog()
 dialog.chartWidget.add_equity(data.tesco)
 #dialog.chartWidget.add_equity(data.rightmove)
-dialog.chartWidget.add_equity(ed)
+#dialog.chartWidget.add_equity(ed)
 #dialog.chartWidget.change_y_axis_scale(chartWidget.Y_AXIS_VALUE)
 
 dialog.exec()

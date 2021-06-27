@@ -84,6 +84,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.collapseAllButton.clicked.connect(self.treeView.collapseAll)
         self.addToChartButton.clicked.connect(self.addToChart)
         self.keyColumnCheckBox.stateChanged.connect(self.toggleKeyColumn)
+        
 
         
         
@@ -106,8 +107,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     
     def addToChart(self):
         selectedIndex = self.treeView.currentIndex() #current_selected
+        row = selectedIndex.row()
+        currentEquityIndex = selectedIndex.sibling(row,3)
+
        
-        currentEquityIndex = selectedIndex.siblingAtColumn(3)
+        #currentEquityIndex = selectedIndex.siblingAtColumn(3)
         
         # equity_name = currentEquityIndex.data()
         # if(equity_name == ""):
@@ -195,12 +199,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             #return standardItem
 
 
-
+equities = [data.baillie_american, data.tesco, data.ceres, data.rightmove]
 app = QtWidgets.QApplication(sys.argv)
 window = MainWindow(data.all_equities)
 
 window.show()
-#window.chartWidget.set_data(equity_data)
 app.exec()
 
 #items = window.recursive_add_item(list1)
