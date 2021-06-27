@@ -72,4 +72,3 @@ dialog.chartWidget.add_equity(data.tesco)
 #dialog.chartWidget.change_y_axis_scale(chartWidget.Y_AXIS_VALUE)
 
 dialog.exec()
-

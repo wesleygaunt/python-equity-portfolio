@@ -258,7 +258,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
       
 
 
-
+app = 0
 app = QtWidgets.QApplication(sys.argv)
 window = MainWindow()
 window.show()

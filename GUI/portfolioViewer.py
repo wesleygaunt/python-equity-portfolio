@@ -200,10 +200,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
 equities = [data.baillie_american, data.tesco, data.ceres, data.rightmove]
+
 app = QtWidgets.QApplication(sys.argv)
-window = MainWindow(data.all_equities)
-
-window.show()
+main_window = MainWindow(equities)
+main_window.show()
 app.exec()
-
-#items = window.recursive_add_item(list1)

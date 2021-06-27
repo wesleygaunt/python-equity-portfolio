@@ -34,8 +34,7 @@ from bokeh.palettes import Category10_10 as palette
 import itertools  
 colors_cycle = itertools.cycle(palette)
 
-pg.setConfigOption('background', 'w')
-pg.setConfigOption('foreground', 'k')
+
 
 
 
@@ -53,20 +52,23 @@ NORMALISE_DATE = 3
 NORMALISE_SLIDER = 4
 NORMALISE_SLIDER_AUTO = 5
 
-
-
-no_pen = pg.mkPen(None)
-
-MIN_DATE = (dt.datetime(dt.MINYEAR,1,1) - dt.datetime(1970,1,1)).total_seconds()
-MAX_DATE = (dt.datetime(dt.MAXYEAR,1,1) - dt.datetime(1970,1,1)).total_seconds()
-infline0 = pg.PlotDataItem([MIN_DATE, MAX_DATE], [0,0])
-infline1 = pg.PlotDataItem([MIN_DATE, MAX_DATE], [1,1])
-LOSS_FILL_ITEM = pg.FillBetweenItem(infline1, infline0, brush=(255,0,0,50))
-
-    
     
 class chartWidget(QtWidgets.QWidget, Ui_chartWidget):
     def __init__(self, *args, **kwargs):
+        
+        pg.setConfigOption('background', 'w')
+        pg.setConfigOption('foreground', 'k')
+        
+        no_pen = pg.mkPen(None)
+        
+        MIN_DATE = (dt.datetime(dt.MINYEAR,1,1) - dt.datetime(1970,1,1)).total_seconds()
+        MAX_DATE = (dt.datetime(dt.MAXYEAR,1,1) - dt.datetime(1970,1,1)).total_seconds()
+        infline0 = pg.PlotDataItem([MIN_DATE, MAX_DATE], [0,0])
+        infline1 = pg.PlotDataItem([MIN_DATE, MAX_DATE], [1,1])
+        LOSS_FILL_ITEM = pg.FillBetweenItem(infline1, infline0, brush=(255,0,0,50))
+
+        
+        
         super(chartWidget, self).__init__(*args, **kwargs)
         self.setupUi(self)
         self.y_axis_scale = Y_AXIS_PERCENT
