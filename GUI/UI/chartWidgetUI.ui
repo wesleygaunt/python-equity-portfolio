@@ -35,10 +35,10 @@
        </property>
       </spacer>
      </item>
-     <item row="0" column="2">
-      <widget class="QToolButton" name="legendButton">
+     <item row="0" column="0">
+      <widget class="QToolButton" name="axisOptionsButton">
        <property name="text">
-        <string>Legend</string>
+        <string>Options</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -54,10 +54,10 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QToolButton" name="axisOptionsButton">
+     <item row="0" column="2">
+      <widget class="QToolButton" name="legendButton">
        <property name="text">
-        <string>Axis options</string>
+        <string>Legend</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -249,7 +249,7 @@
             <widget class="QDateEdit" name="fromDateEdit"/>
            </item>
            <item>
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="toLabel">
              <property name="text">
               <string>to</string>
              </property>
@@ -437,8 +437,22 @@
            </property>
           </widget>
          </item>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="showAllButton">
+           <property name="text">
+            <string>Show All</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QPushButton" name="deleteButton">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="0" colspan="2">
-          <widget class="QListView" name="legend">
+          <widget class="QTreeView" name="legend">
            <property name="minimumSize">
             <size>
              <width>160</width>
@@ -456,13 +470,6 @@
            </property>
            <property name="editTriggers">
             <set>QAbstractItemView::NoEditTriggers</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="showAllButton">
-           <property name="text">
-            <string>Show All</string>
            </property>
           </widget>
          </item>

@@ -10,18 +10,15 @@ Created on Sun Feb 28 11:58:44 2021
 
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
-from PyQt5.QtCore import Qt, QPointF
+#from PyQt5.QtCore import Qt, QPointF
 
 import data
 import analysis_functions
 
 import equity
 
-import datetime
-
-import chartWidget
-#import chartdialog
-
+from chartDialog import chartDialog
+from chartWidget import chartWidget
 
 #set up the equities
 #rightmove = data.rightmove
@@ -42,33 +39,14 @@ rightmove_data = analysis_functions.percent_change(rightmove_data)
 ed_data = ed.get_data()
 #dict_data =  analysis_functions.percent_change(dict_data)
 
-
-
-
 #del rightmove
-
-class ChartDialog(QtWidgets.QDialog):
-    def __init__(self, parent = None):
-        super().__init__(parent = parent)
-        self.resize(1400, 800)
-
-        self.gridLayout = QtWidgets.QGridLayout()
-        
-        self.chartWidget = chartWidget.chartWidget()
-        self.chartWidget.setObjectName("chartWidget")
-        self.gridLayout.addWidget(self.chartWidget)#, 0, 0, 1, 1)
-
-        
-        self.setLayout(self.gridLayout)
-        
-
-
 app = QtWidgets.QApplication([])
-#provide the objects as arguments to the dialog to see it working
-dialog = ChartDialog()
-dialog.chartWidget.add_equity(data.tesco)
+dialog = chartWidget()
+dialog.add_equity(ed) #provide the objects as arguments to the dialog to see it working
+
 #dialog.chartWidget.add_equity(data.rightmove)
 #dialog.chartWidget.add_equity(ed)
 #dialog.chartWidget.change_y_axis_scale(chartWidget.Y_AXIS_VALUE)
 
-dialog.exec()
+dialog.show()
+app.exec()

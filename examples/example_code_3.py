@@ -22,13 +22,13 @@ equity_dict = equity.EquityDict()
 fund_launch_date = datetime.datetime(2018,1, 1)
 equity_dict.add([rightmove,tesco])
 proportions = {rightmove.name:1,tesco.name:2}
-fund_1 = Fund.set_up_fund('fund 1',equity_dict,proportions,fund_launch_date)
+fund_1 = Fund('fund 1',equity_dict,proportions,fund_launch_date)
 
 history = transaction_history.TransactionHistory();
 
 
 history.buy_equity(astrazeneca,1,datetime.datetime(2018,1, 1))
-history.buy_equity(shell,1,datetime.datetime(2018,1, 1))
+#history.buy_equity(shell,1,datetime.datetime(2018,1, 1))
 history.buy_equity(fund_1,5,datetime.datetime(2018,1, 1))
 final_portfolio = history.portfolio()
 
@@ -36,6 +36,6 @@ fund_data = fund_1.get_holdings_data(datetime.datetime(2018,1, 1), datetime.date
 fund_data = analysis_functions.percent_change(fund_data)
 
 data = final_portfolio.get_holdings_data(datetime.datetime(2018,1, 1), datetime.datetime(2020,1, 1))
-data = analysis_functions.percent_change(data)
+#data = analysis_functions.percent_change(data)
 
 plot.line(data,axis = 'percentage')

@@ -8,7 +8,7 @@ Created on Thu Apr  8 12:43:33 2021
 from portfolioViewerUI import Ui_MainWindow
 
 import sys
-from PyQt5 import QtWidgets, uic, QtGui, QtCore
+from PyQt5 import QtWidgets, QtGui, QtCore
 
 from PyQt5.QtCore import Qt
 
@@ -20,29 +20,46 @@ import data
 from collections import abc
 import general_functions
 
-ed = equity.EquityDict()
-ed.add([data.tesco,data.rightmove, data.baillie_american])
+from fund import Fund
+import datetime
+import pandas as pd
+from equity import Equity
+
+rightmove = data.rightmove
+tesco = data.tesco
+astrazeneca = data.astrazeneca
+shell = data.shell
+
+equity_dict = equity.EquityDict()
+fund_launch_date = datetime.datetime(2018,1, 1)
+equity_dict.add([rightmove,tesco])
+proportions = {rightmove.name:1,tesco.name:1}
+fund_1 = Fund('fund 1',equity_dict,proportions,fund_launch_date)
+
+
+#equity_dict = equity.EquityDict()
+#equity_dict.add([data.tesco,data.rightmove, data.baillie_american])
 #ed_data = ed.get_data()
 
 
 equity_data = data.rightmove.get_data()
 equity_data = analysis_functions.percent_change(equity_data)
 
-dataRole = Qt.UserRole
+DATA_ROLE = Qt.UserRole + 1
 
-rightmove= data.rightmove
+rightmove = data.rightmove
 rightmove_data = rightmove.get_data()
 
 tesco = data.tesco
 tesco_data = tesco.get_data()
 
 list1 = [data.tesco,data.rightmove, data.baillie_american, data.funds]
-list2 = [data.jupiter_uk_smaller_companies,list1,ed]
+list2 = [data.jupiter_uk_smaller_companies,list1,equity_dict]
 
 
-class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, data_to_show,*args, **kwargs):
-        super(MainWindow, self).__init__(*args, **kwargs)
+        super(portfolioViewer, self).__init__(*args, **kwargs)
         self.setupUi(self)
 
         
@@ -50,14 +67,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.treeModel.setHorizontalHeaderLabels(['','Key','Type','Name'])
         
         self.treeView.setModel(self.treeModel)
-        
+        self.treeViewSelectionModel = self.treeView.selectionModel()
+        self.treeViewSelectionModel.selectionChanged.connect(self.on_selectionChanged)     
         #self.treeView.setHeaderHidden(True)
         
         self.setupTreeModel(data_to_show)
         
-        self.treeViewWidth = 250
-        self.treeView.setMinimumWidth(self.treeViewWidth)
-        self.treeView.setMaximumWidth(self.treeViewWidth)
+        # self.treeViewWidth = 250
+        # self.treeView.setMinimumWidth(self.treeViewWidth)
+        # self.treeView.setMaximumWidth(self.treeViewWidth)
         
         #self.treeView.header().setStretchLastSection(True)
         #self.treeView.header().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
@@ -104,20 +122,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             #self.treeView.hideColumn(1)
             self.treeView.header().hideSection(1)
-    
-    def addToChart(self):
-        selectedIndex = self.treeView.currentIndex() #current_selected
-        row = selectedIndex.row()
-        currentEquityIndex = selectedIndex.sibling(row,3)
+    def equity_from_index(self, index):
+        row = index.row()
+        currentDataIndex = index.sibling(row,3)
 
-       
-        #currentEquityIndex = selectedIndex.siblingAtColumn(3)
+
+        equity = currentDataIndex.data(DATA_ROLE)
+        return equity
         
-        # equity_name = currentEquityIndex.data()
-        # if(equity_name == ""):
-        #     return
-
-        equity = currentEquityIndex.data(dataRole)
+    def addToChart(self):
+        index = self.treeView.currentIndex() #current_selected
+        equity = self.equity_from_index(index)
         
         #print(str(equity_name) + " : " + str(equity))
         
@@ -142,10 +157,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         else:
             rootItem.appendRow(self.recursive_add_item(data))
 
-        self.treeView.hideColumn(1)
+        self.treeView.hideColumn(1) #hide key column
         
     def recursive_add_item(self, item, key = ""):
-        if(type(item) == equity.Equity):
+        if(isinstance(item,equity.Equity)): #will catch equities and funds
             #equitytype, add to tree
             #return [QtGui.QStandardItem(str(type(item).__name__)), QtGui.QStandardItem(item.name)]
             
@@ -160,7 +175,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             typeItem.setData(item.name, Qt.ToolTipRole)
             nameItem.setData(item.name, Qt.ToolTipRole)
             
-            nameItem.setData(item,role = dataRole)
+            nameItem.setData(item,role = DATA_ROLE)
             
             
             return [blankItem, keyItem, typeItem, nameItem]
@@ -174,9 +189,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             typeItem = QtGui.QStandardItem(str(type(item).__name__))
             nameItem = QtGui.QStandardItem("")
             
-            nameItem.setData(item,role = dataRole)
-
-
+            nameItem.setData(item,role = DATA_ROLE)
 
             #childId = 0
             itemDict = general_functions.get_collection_items(item)
@@ -190,18 +203,37 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     print("ChildItem is None")
             
             #return [parentItem, QtGui.QStandardItem("")]
-            return [blankItem,keyItem, typeItem, nameItem]
+            return [blankItem, keyItem, typeItem, nameItem]
 
         else:
             return None
             # standardItem = QtGui.QStandardItem("***" + str(type(item).__name__) + "*** : " + str(self.uniqueID))
             # self.uniqueID = self.uniqueID + 1
             #return standardItem
+    
+    
+    
+    @QtCore.pyqtSlot('QItemSelection', 'QItemSelection')
+    def on_selectionChanged(self, selected, deselected):
+        #https://stackoverflow.com/questions/52778141/qtableview-selecion-change
+        index = selected.indexes()[0]
+        selectedItem = self.equity_from_index(index)
+        
+        if(type(selectedItem) == Equity):
+            self.equityWidget.set_equity(selectedItem)
+            
+    def moveEvent(self, moveEvent):
+        self.equityWidget.move_chart()
+        super(portfolioViewer, self).moveEvent(moveEvent)
+    def closeEvent(self, closeEvent):
+        self.equityWidget.close_chart()
+        super(portfolioViewer, self).closeEvent(closeEvent)
 
 
-equities = [data.baillie_american, data.tesco, data.ceres, data.rightmove]
+
+equities = [data.baillie_american, data.tesco, data.ceres, data.rightmove, fund_1]
 
 app = QtWidgets.QApplication(sys.argv)
-main_window = MainWindow(equities)
+main_window = portfolioViewer(data.all_equities)
 main_window.show()
 app.exec()

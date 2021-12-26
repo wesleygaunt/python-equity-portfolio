@@ -227,11 +227,6 @@ class Equity:
         data = self.data.copy()
         
         if(start_date == None and end_date == None): #empty request, return all possible
-        
-            # self.__request_data()
-            # new_request = True
-
-            # data = self.data.copy()
             return data
         
         
@@ -248,31 +243,22 @@ class Equity:
             #print('end_date available')
             pass
             
-        # else:
-        #     if(new_request == False):
-        #         #the end date is not in the saved data AND we haven't just done a request.
-        #         self.__request_data()
-        #         new_request = True
-        #         data = self.data
-        #     data = data.reindex(pd.date_range(self.saved_data_start_date, end_date), method = 'ffill')
-
-            
                 
         elif(self.saved_data_end_date < end_date and self.new_request == False):
             #the end date is not in the saved data AND we haven't just done a request.
             
             self.__request_data()
-            new_request = True
+            self.new_request = True
 
             data = self.data.copy()
             
-        if(self.saved_data_end_date < end_date and new_request == True):
+        if(self.saved_data_end_date < end_date and self.new_request == True):
             #if still out of range
             
             #data = data.reindex(pd.date_range(self.saved_data_start_date, end_date), method = 'ffill')
             pass
 
-            
+        
         # else:
         #     #the end data isn't available,but we have up to date data (new_request == True)
         #     ##print("no new data")
@@ -286,16 +272,11 @@ class Equity:
         #print(nearest_date_after_end)
         #data = data[nearest_date_before_start:nearest_date_after_end]
         data = data[start_date:end_date]
+        data = general_functions.ensure_datetime_index(data)
 
           
             
-            
-        
-        #if(start_date == end_date):
-         #   data = pd.DataFrame(data.loc[nearest_date_after_end])
-        
-        #if(data.shape[0] == 1):
-         #   data = data.T
+
          
         return data   
         
@@ -325,7 +306,8 @@ class EquityDict(UserDict):
         super(EquityDict,self).__init__(*args, **kwargs)
         
     def __setitem__(self, key, item):
-        if(type(item) == Equity):
+        #import fund
+        if(isinstance(item, Equity)):
             key = item.name
             key = general_functions.capitalize_and_underscore(key)
             super(EquityDict,self).__setitem__(key,item)
@@ -392,8 +374,7 @@ class EquityDict(UserDict):
             
         full_data.fillna(method = 'ffill',inplace = True)      #forward fill to get rid of any discrepancies, where data is missing in one col, but not others
         
-        if(full_data.shape[0] == 1): #transpose if required
-            full_data = full_data.T
+        full_data = general_functions.ensure_datetime_index(full_data)
             
         return full_data
 

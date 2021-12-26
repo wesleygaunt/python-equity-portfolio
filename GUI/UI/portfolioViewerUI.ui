@@ -15,6 +15,16 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="2" rowspan="3">
+     <widget class="chartWidget" name="chartWidget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="0" rowspan="3">
      <widget class="QFrame" name="frame">
       <property name="frameShape">
@@ -24,6 +34,18 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item row="0" column="0">
         <widget class="QPushButton" name="expandAllButton">
          <property name="text">
@@ -31,17 +53,10 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="collapseAllButton">
-         <property name="text">
-          <string>Collapse All</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QPushButton" name="addToChartButton">
-         <property name="text">
-          <string>Add to chart</string>
+       <item row="4" column="0" colspan="3">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -52,6 +67,13 @@
          </attribute>
         </widget>
        </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="collapseAllButton">
+         <property name="text">
+          <string>Collapse All</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="2">
         <widget class="QCheckBox" name="keyColumnCheckBox">
          <property name="text">
@@ -59,17 +81,17 @@
          </property>
         </widget>
        </item>
+       <item row="5" column="0" colspan="3">
+        <widget class="equityWidget" name="equityWidget" native="true"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="addToChartButton">
+         <property name="text">
+          <string>Add to chart</string>
+         </property>
+        </widget>
+       </item>
       </layout>
-     </widget>
-    </item>
-    <item row="0" column="2" rowspan="3">
-     <widget class="chartWidget" name="chartWidget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
      </widget>
     </item>
    </layout>
@@ -91,6 +113,12 @@
    <class>chartWidget</class>
    <extends>QWidget</extends>
    <header>chartWidget</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>equityWidget</class>
+   <extends>QWidget</extends>
+   <header>equityWidget</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -44,7 +44,7 @@ class TransactionHistory:
         self.transaction_data.reset_index(drop = True, inplace = True)
 
 
-    def __equity_type_check(self,equity_to_check):
+    def __equity_type_check(self,item):
         """
         Will raise a TypeError unless an equity or fund is passed.
 
@@ -63,9 +63,8 @@ class TransactionHistory:
         None.
 
         """
-        import fund          #imported here to prevent circular inclusion errors.
-
-        if (type(equity_to_check) == equity.Equity or type(equity_to_check) == fund.Fund):
+        
+        if (isinstance(item, equity.Equity)):
             return 
         else:
             raise TypeError("Pass an equity or fund to Portfolio")
@@ -354,7 +353,7 @@ class TransactionHistory:
         
         
 
-    def portfolio(self,end_date = None,name = ''):
+    def portfolio(self,end_date = None):
         """
         Generates a portfolio at a certain date from the transaction history.
 
@@ -370,7 +369,7 @@ class TransactionHistory:
             DESCRIPTION.
 
         """
-        new_portfolio = portfolio.Portfolio(name);   #need to copy this, gonna require a LOT of memory later on...
+        new_portfolio = portfolio.Portfolio();   #need to copy this, gonna require a LOT of memory later on...
             
         self.__sort_history()                           #sort the transaction history
 

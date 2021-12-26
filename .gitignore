@@ -129,3 +129,5 @@ modules/ft_data_request.py
 
 modules/dependancies_all.py
 sandbox.py
+GUI/run.bat
+GUI/UI/pyuic5_compile.bat

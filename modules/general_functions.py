@@ -4,7 +4,7 @@ A collection of general use functions.
 """
 import datetime
 import calendar
-
+import pandas
 from collections import abc
 
 
@@ -304,3 +304,49 @@ def get_collection_items(collection):
         print("unknown collection type")
         return
     return items
+
+def QDate_to_datetime(_Qdate):
+    """
+    Converts a Qt QDate format to a python datetime.
+
+    Parameters
+    ----------
+    _Qdate : QDate
+        DESCRIPTION.
+
+    Returns
+    -------
+    date : datetime
+        DESCRIPTION.
+
+    """
+    date = datetime.datetime(year = _Qdate.year(), month = _Qdate.month(), day = _Qdate.day())
+    return date
+
+def ensure_datetime_index(data):
+    """
+    Returns a dataFrame or series with the correct orientation
+
+    Parameters
+    ----------
+    data : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    data : TYPE
+        DESCRIPTION.
+
+    """
+    if(type(data) == pandas.DataFrame or type(data) == pandas.Series):
+        if(type(data.index) == pandas.core.indexes.datetimes.DatetimeIndex and type(data.columns) != pandas.core.indexes.datetimes.DatetimeIndex):
+            #all good, already correct orientation
+            return data
+        elif(type(data.index) != pandas.core.indexes.datetimes.DatetimeIndex and type(data.columns) == pandas.core.indexes.datetimes.DatetimeIndex):
+            #wrong orientation    
+            data = data.T
+            return data
+        else:
+            return data
+    else:
+        return data

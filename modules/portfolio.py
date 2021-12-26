@@ -10,18 +10,17 @@ import general_functions
 
 class Portfolio:
     
-    def __init__(self,name = ''):
+    def __init__(self):
         self.cash = 0.0
         self.holdings = pd.DataFrame({"equity":[],"units":[]})
         self.holdings = self.holdings.set_index('equity')
         self.equity_dict = equity.EquityDict()
         
-        self.name = general_functions.capitalize_and_underscore(name)
     
     
     #https://stackoverflow.com/questions/141545/how-to-overload-init-method-based-on-argument-type
     @classmethod
-    def fromTransactionHistory(cls, transaction_history,date = None, name = ''):
+    def fromTransactionHistory(cls, transaction_history,date = None):
         """
         Create a Portfolio object from a transaction history. Will create a portfolio as it looked at the date specified
 
@@ -118,7 +117,7 @@ class Portfolio:
     def __len__(self):
         return len(self.holdings)   
         
-    def __getitem__(self, equity):
+    def __getitem__(self, equity_input):
         """
         Gets the number of units of a certain equity. Will not raise a KeyError, but will return 0 if the specified equity does not exist.
 
@@ -133,9 +132,16 @@ class Portfolio:
             The number of units in the portfolio.
 
         """
-        if(equity.name in self.holdings.index):
+        if(type(equity_input) == str):
+            name = equity_input
+        elif(type(equity_input) == equity.Equity):
+            name = equity_input.name
+        else:
+            return 0
+        
+        if(name in self.holdings.index):
             units_col = self.holdings['units']
-            return units_col[equity.name]
+            return units_col[name]
         else:
             return 0 #if the equity doesn't exist, return 0 (no equities)
     
@@ -249,7 +255,7 @@ class Portfolio:
         
       
 
-    def get_holdings_data(self, start_date, end_date = None, total_column = True):
+    def get_holdings_data(self, start_date = None, end_date = None, total_column = True):
         """
         Gets the value data of all the holdings in the portfolio between the dates specified.
 
@@ -266,19 +272,22 @@ class Portfolio:
             DESCRIPTION.
 
         """
+        portfolio_value_data = pd.DataFrame()
+        
+        
         eq_close_data = self.equity_dict.get_data(start_date, end_date)
+        
     
         
-        if(start_date == end_date):
-            eq_close_data = eq_close_data.T
-        portfolio_value_data = pd.DataFrame()
+        eq_close_data = general_functions.ensure_datetime_index(eq_close_data)
+            
         
         for equity_name in self.equity_dict:
             
-            eq = self.equity_dict[equity_name]
-            no_eq_units = self[eq]      #get number of units of the equity
+            #eq = self.equity_dict[equity_name]
+            no_eq_units = self[equity_name]      #get number of units of the equity
             
-            eq_value_data = pd.DataFrame(eq_close_data[eq.name]) * no_eq_units            
+            eq_value_data = pd.DataFrame(eq_close_data[equity_name]) * no_eq_units            
             portfolio_value_data = portfolio_value_data.add(eq_value_data, fill_value = 0)
         
         portfolio_value_data.fillna(method = 'ffill', inplace = True)         #need to fill in the blanks
@@ -290,7 +299,7 @@ class Portfolio:
         return portfolio_value_data
 
 
-    def get_data(self,start_date,end_date):
+    def get_data(self,start_date = None ,end_date = None):
         """
         Gets the historical data of the portfolio, either by making a request, using data in memory or loading it from storage.
 
@@ -308,14 +317,14 @@ class Portfolio:
         """
         data = self.get_holdings_data(start_date,end_date, total_column = True)
         data = data['TOTAL']
-        self.data = data
+        
         
         data = pd.DataFrame(data)
-            
+        self.data = data
             
         return data
     
-    def get_percentage_change_data(self,start_date,end_date):
+    def get_percentage_change_data(self,start_date = None,end_date = None):
         if(start_date == end_date):
             d = {'Date':[start_date],'TOTAL':[1]}
             data = pd.DataFrame(d)
@@ -326,7 +335,7 @@ class Portfolio:
             data = analysis_functions.percent_change_from_beginning(data)
             return data
         
-    def annual_performance(start_date,end_date):
+    def annual_performance(self, start_date = None ,end_date = None):
         data = self.get_data(start_date,end_date)
         
         annual_performance_data = analysis_functions.annual_performance(data)
