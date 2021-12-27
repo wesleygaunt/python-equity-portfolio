@@ -41,12 +41,12 @@ ed_data = ed.get_data()
 
 #del rightmove
 app = QtWidgets.QApplication([])
-dialog = chartWidget()
-dialog.add_equity(ed) #provide the objects as arguments to the dialog to see it working
+widget = chartWidget()
+widget.add_equity(ed) #provide the objects as arguments to the dialog to see it working
 
 #dialog.chartWidget.add_equity(data.rightmove)
 #dialog.chartWidget.add_equity(ed)
 #dialog.chartWidget.change_y_axis_scale(chartWidget.Y_AXIS_VALUE)
 
-dialog.show()
+widget.show()
 app.exec()

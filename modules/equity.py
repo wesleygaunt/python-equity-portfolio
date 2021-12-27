@@ -47,10 +47,10 @@ class Equity:
                 
 
                 
-                print("loaded equity: " + self.__name)
+                #print("loaded equity: " + self.__name)
             
             except:
-                print('load failed: ' + self.__name)
+                #print('load failed: ' + self.__name)
                 try_to_load = False #will force this into the other branch
             
         if(try_to_load == False):      
@@ -101,13 +101,13 @@ class Equity:
 
         """
         
-        print("equity.save")
+        #print("equity.save")
 
         JSON_dict = self.get_JSON_dict()
         with open(self.equity_filename, 'w') as file:
             json.dump(JSON_dict, file)
         
-        print("equity saved: "+ self.__name)
+        #print("equity saved: "+ self.__name)
         return self.equity_filename
     
     
@@ -120,7 +120,7 @@ class Equity:
         None.
 
         """
-        print('loaded historical data: ' + self.historical_data_filename)
+        #print('loaded historical data: ' + self.historical_data_filename)
         self.data = pd.read_json(self.historical_data_filename)
         self.data = self.data.sort_index()
         #self.data.index.names = ['Date']
@@ -137,7 +137,7 @@ class Equity:
 
         """
         
-        print('saved historical data: ' + self.historical_data_filename)
+        #print('saved historical data: ' + self.historical_data_filename)
         if(self.data.empty == False):
             self.data = self.data.sort_index()
 
@@ -171,7 +171,7 @@ class Equity:
             The data that has been loaded.
 
         """
-        print('request data: ' + self.name)
+        #print('request data: ' + self.name)
         self.data = request_hist_data(self.provider,self.provider_code, self.unit,constants.MIN_DATE,datetime.datetime.now())
         
         self.data.columns = [self.name] #remove names
@@ -312,7 +312,7 @@ class EquityDict(UserDict):
             key = general_functions.capitalize_and_underscore(key)
             super(EquityDict,self).__setitem__(key,item)
         else:
-            print("EquityDict only accepts equities")
+            warnings.warn("EquityDict only accepts equities")
     def __getitem__(self,key):
         key = general_functions.capitalize_and_underscore(key)
         return super(EquityDict,self).__getitem__(key)

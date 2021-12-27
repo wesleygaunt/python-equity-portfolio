@@ -53,9 +53,10 @@ NORMALISE_SLIDER_AUTO = 5
 
     
 class chartWidget(QtWidgets.QWidget, Ui_chartWidget):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, owner = None, *args, **kwargs):
         super(chartWidget, self).__init__(*args, **kwargs)
-
+        
+        self.owner = owner
         
         pg.setConfigOption('background', 'w')
         pg.setConfigOption('foreground', 'k')
@@ -601,6 +602,23 @@ class chartWidget(QtWidgets.QWidget, Ui_chartWidget):
             self.verticalAxisOptionsGroupBox.hide()
             self.horizontalAxisOptionsGroupBox.hide()
             self.axisOptionsFrame.hide()
-
-
             self.axisOptionsButton.setArrowType(Qt.ArrowType.DownArrow)
+            
+    def closeEvent(self, closeEvent):
+        """
+        This handles the interatction with the owener, if it is opened in a new window
+
+        Parameters
+        ----------
+        closeEvent : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
+        if(type(self.owner) != None):
+            self.owner.chart_closing()
+        super(chartWidget, self).closeEvent(closeEvent)
+        

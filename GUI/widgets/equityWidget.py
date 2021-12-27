@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 from chartWidget import chartWidget
 from equity import Equity
+import warnings
 """
 if using this widget inside a parent the following needs to be implemented:
     
@@ -27,7 +28,6 @@ as it handles move event and close events properly
 class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
     def __init__(self,equity = None, *args, **kwargs):
         super(equityWidget, self).__init__(*args, **kwargs)
-        
             
         self.setupUi(self)
         
@@ -46,8 +46,7 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
             
         if(type(equity) ==  Equity):
             self.set_equity(equity)
-            print("equity input")
-            
+
 
         
     def set_equity(self, equity):
@@ -55,7 +54,7 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         #first create a chart
         self.chartButton.setEnabled(True)
 
-        self.chart = chartWidget() #new window
+        self.chart = chartWidget(owner = self) #new window
         self.chart.toggle_legend(False)
         self.chart.toggle_axis_options(False)
         self.chart.setFixedSize(self.chart.size())
@@ -92,8 +91,11 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
             self.saved_data_start_date.setEnabled(False)                   
             self.dataEndLabel.setEnabled(False) 
             self.saved_data_end_date.setEnabled(False)
+        self.reset_chart_button()
 
-        
+    def reset_chart_button(self):
+        self.chartButton.setArrowType(Qt.ArrowType.RightArrow)
+        self.chartButton.setChecked(False)
         
     def __toggle_chart(self, state):
         if(state == Qt.Checked or state == True):
@@ -118,31 +120,39 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
 
      
     def move_chart(self):
+        # print("geometry: " + str(self.geometry()))
+        # print("rect: " + str(self.rect()))
+        # print("frameGeometry " + str(self.frameGeometry()))
+        topLeft = self.geometry().topLeft()
+        # print(self.mapToGlobal(topLeft))
+        globalTopLeft = self.mapToGlobal(topLeft)
         #commented out as there is currently a problem
-        # global_pos = self.mapToGlobal(self.pos())
-        # print(global_pos)
-        # if(self.parent() == None):
-        #     global_pos = global_pos/2 #error!
-        # self.chartpos = QtCore.QPoint(global_pos.x() + self.width(),global_pos.y())
-        # self.chart.move(self.chartpos)
-        pass
- 
+        
+        if(self.parent() == None):
+            pos = self.pos()
+        else:
+            pos = self.mapToGlobal(self.pos())
+            #not yet working!
+        chartpos = QtCore.QPoint(pos.x() + self.width(),pos.y())
+
+        try:
+            self.chart.move(chartpos)
+        except:
+                pass
+
+    def chart_closing(self):
+        self.reset_chart_button()
+        
     def close_chart(self):
         try:
             self.chart.close()
         except:
             pass
         
-        
     def moveEvent(self, moveEvent):
         self.move_chart()
         super(equityWidget, self).moveEvent(moveEvent)
-        
-        
+              
     def closeEvent(self, closeEvent):
         self.close_chart()
         super(equityWidget, self).closeEvent(closeEvent)
-
-    
-
-

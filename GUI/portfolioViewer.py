@@ -25,6 +25,8 @@ import datetime
 import pandas as pd
 from equity import Equity
 
+from equityWidget import equityWidget
+
 rightmove = data.rightmove
 tesco = data.tesco
 astrazeneca = data.astrazeneca
@@ -92,6 +94,7 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
         self.treeView.header().setSectionResizeMode(3,QtWidgets.QHeaderView.Stretch)
         
         self.treeView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.treeView.activated.connect(self.treeView_item_entered)
 
 
         #self.treeView.header().sectionResized.connect(self.section_resized)
@@ -200,7 +203,8 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
                     #parentKeyItem.appendRow(childItem)
 
                 else:
-                    print("ChildItem is None")
+                    pass
+                    #print("ChildItem is None")
             
             #return [parentItem, QtGui.QStandardItem("")]
             return [blankItem, keyItem, typeItem, nameItem]
@@ -228,6 +232,12 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
     def closeEvent(self, closeEvent):
         self.equityWidget.close_chart()
         super(portfolioViewer, self).closeEvent(closeEvent)
+        
+    def treeView_item_entered(self, index):
+        selectedItem = self.equity_from_index(index)
+        if(type(selectedItem) == Equity):
+            widget = equityWidget(selectedItem)
+            widget.show()
 
 
 
