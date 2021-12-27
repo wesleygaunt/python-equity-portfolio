@@ -144,7 +144,7 @@ class Ui_equityWidget(object):
         self.equityFileButton.setText(_translate("equityWidget", "..."))
         self.providerLabel.setText(_translate("equityWidget", "Data provider"))
         self.dataStartLabel.setText(_translate("equityWidget", "Saved data start"))
-        self.chartButton.setText(_translate("equityWidget", "Chart"))
+        self.chartButton.setText(_translate("equityWidget", "Pop out chart"))
         self.label_4.setText(_translate("equityWidget", "Unit"))
         self.label_6.setText(_translate("equityWidget", "Equity file"))
         self.dataEndLabel.setText(_translate("equityWidget", "Saved data end"))

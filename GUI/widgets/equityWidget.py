@@ -11,6 +11,7 @@ from PyQt5.QtCore import Qt
 from chartWidget import chartWidget
 from equity import Equity
 import warnings
+import subprocess
 """
 if using this widget inside a parent the following needs to be implemented:
     
@@ -31,9 +32,11 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
             
         self.setupUi(self)
         
+        self.chartButton.setEnabled(False)
 
         self.chartButton.clicked.connect(self.__toggle_chart)
-        self.chartButton.setEnabled(False)
+        self.equityFileButton.clicked.connect(self.open_equity_file)
+        self.dataFileButton.clicked.connect(self.open_data_file)
         #self.layout().setSizeConstraint(QtWidgets.QLayout.SetFixedSize) #fixed size!
         self.setFixedSize(self.size())
         
@@ -156,3 +159,8 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
     def closeEvent(self, closeEvent):
         self.close_chart()
         super(equityWidget, self).closeEvent(closeEvent)
+        
+    def open_data_file(self):
+        subprocess.Popen(r'explorer /select,'+ self.equity.historical_data_filename)
+    def open_equity_file(self):
+        subprocess.Popen(r'explorer /select,'+ self.equity.equity_filename)

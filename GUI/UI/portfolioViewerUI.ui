@@ -46,10 +46,27 @@
        <property name="bottomMargin">
         <number>0</number>
        </property>
+       <item row="0" column="2">
+        <widget class="QCheckBox" name="keyColumnCheckBox">
+         <property name="text">
+          <string>Key column</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="3">
+        <widget class="equityWidget" name="equityWidget" native="true"/>
+       </item>
        <item row="0" column="0">
         <widget class="QPushButton" name="expandAllButton">
          <property name="text">
           <string>Expand All</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="collapseAllButton">
+         <property name="text">
+          <string>Collapse All</string>
          </property>
         </widget>
        </item>
@@ -67,24 +84,7 @@
          </attribute>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="collapseAllButton">
-         <property name="text">
-          <string>Collapse All</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QCheckBox" name="keyColumnCheckBox">
-         <property name="text">
-          <string>Key column</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0" colspan="3">
-        <widget class="equityWidget" name="equityWidget" native="true"/>
-       </item>
-       <item row="3" column="0">
+       <item row="6" column="2">
         <widget class="QPushButton" name="addToChartButton">
          <property name="text">
           <string>Add to chart</string>

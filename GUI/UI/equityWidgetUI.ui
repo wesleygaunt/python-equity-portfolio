@@ -169,7 +169,7 @@
      <item>
       <widget class="QToolButton" name="chartButton">
        <property name="text">
-        <string>Chart</string>
+        <string>Pop out chart</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
