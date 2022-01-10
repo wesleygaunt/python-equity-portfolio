@@ -12,7 +12,7 @@ legg_mason_japan = equity.Equity(ISIN = 'GB00B8JYLC77',name = 'Legg Mason If Jap
 baillie_american = equity.Equity(ISIN = 'GB0006061963',name = 'Baillie Gifford American B Acc',provider = 'morningstar',provider_code = 'F0GBR0506U]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
 fidelity_global_tech = equity.Equity(ISIN = 'LU1033663649',name = 'Fidelity Global Technology W Acc',provider = 'morningstar',provider_code = 'F00000SX2A]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
 liontrust_emerging_markets = equity.Equity(name = 'Liontrust Emerging Markets Fund C Acc',ISIN='GB00B8J6SV12',provider='morningstar',provider_code = 'F00000OWFH]2]0]FOGBR$$ALL',unit='GBP',equity_type='fund')
-smith_williamson_artificial_intelligence = equity.Equity(ISIN = 'IE00BYPF3314',name = 'Smith & Williamson Artificial Intelligence Z Acc',provider = 'morningstar',provider_code='F00000YYB5]2]0]FOGBR$$AL',unit = 'GBP',equity_type='fund')
+smith_williamson_artificial_intelligence = equity.Equity(ISIN = 'IE00BYPF3314',name = 'Smith & Williamson Artificial Intelligence Z Acc',provider = 'morningstar',provider_code='F00000YYB5]2]0]FOGBR$$AlL',unit = 'GBP',equity_type='fund')
 marlbourough_us_multicap = equity.Equity(ISIN = 'GB00B906QV32',name = 'Marlborough US Multi-Cap P Inc',provider = 'morningstar',provider_code = 'F00000PBEW]2]0]FOGBR$$ALL',equity_type='fund')
 guinness_sustainable_energy = equity.Equity(ISIN = 'IE00BFYV9L73',name = 'Guinness Sustainable Energy Y Acc',provider = 'morningstar',provider_code = 'F0000103JP]2]0]FOGBR$$ALL',equity_type='fund')
 hl_special_sit = equity.Equity(name = 'HL Multi-Manager Special Situations Trust M Acc',ISIN = 'GB00BVYV7593', provider='morningstar',provider_code='F00000VDJV]2]0]FOGBR$$ALL',unit = 'GBP', equity_type = 'fund')
@@ -42,10 +42,10 @@ baillie_british_smaller_companies = equity.Equity(ISIN = 'GB0005931356',name = '
 ceres = equity.Equity(name = 'Ceres Power Holdings PLC',ISIN = 'GB00BG5KQW09',provider = 'morningstar',provider_code='0P00007YQ0]3]0]E0WWE$$ALL',unit = 'GBP',equity_type='stock')
 
 #yahoo data funds - provided as examples 
-astrazeneca = equity.Equity(name = 'astrazeneca plc',provider='yahoo',provider_code='AZN.L',unit = 'GBp',symbol = 'AZN.L',equity_type='stock')
-shell = equity.Equity(name = 'Royal Dutch Shell plc',provider='yahoo',provider_code='RDSB.L',unit = 'GBp',symbol = 'RDSB.L',equity_type='stock')
-tesco = equity.Equity(name = 'tesco plc',provider='yahoo',provider_code='TSCO.L',unit = 'GBp',symbol = 'TSCO.L',equity_type='stock')
-rightmove = equity.Equity(name = 'rightmove plc',provider='yahoo',provider_code='RMV.L',unit = 'GBp',symbol = 'RMV.L',equity_type='stock')
+# astrazeneca = equity.Equity(name = 'astrazeneca plc',provider='yahoo',provider_code='AZN.L',unit = 'GBp',symbol = 'AZN.L',equity_type='stock')
+# shell = equity.Equity(name = 'Royal Dutch Shell plc',provider='yahoo',provider_code='RDSB.L',unit = 'GBp',symbol = 'RDSB.L',equity_type='stock')
+# tesco = equity.Equity(name = 'tesco plc',provider='yahoo',provider_code='TSCO.L',unit = 'GBp',symbol = 'TSCO.L',equity_type='stock')
+# rightmove = equity.Equity(name = 'rightmove plc',provider='yahoo',provider_code='RMV.L',unit = 'GBp',symbol = 'RMV.L',equity_type='stock')
 
 
 globals_dict = globals().copy()

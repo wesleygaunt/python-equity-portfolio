@@ -26,6 +26,8 @@ class Equity:
                 provider_code = '',
                 unit = '',
                 equity_type = '',
+                secId = '',
+                universe = '',
                 try_to_load = True):
         
         self.data = pd.DataFrame()
@@ -33,6 +35,16 @@ class Equity:
     
         self.equity_filename = constants.DEFAULT_DATA_FOLDER + '\\' +self.__name + '.json' #where the equity metadata will be saved
         self.historical_data_filename = constants.DEFAULT_DATA_FOLDER + '\\' + self.__name + "_hist_data.json"
+        
+        #morningstar specific 
+        self.secId = secId
+        self.universe = universe
+        
+        self.url = ''
+        if(self.secId != ''):
+            self.url = 'https://www.morningstar.co.uk/uk/funds/snapshot/snapshot.aspx?id=' + self.secId
+
+            
         #first try to load
         if try_to_load:
             try:
@@ -65,6 +77,8 @@ class Equity:
                 
             
             self.equity_type = equity_type
+            
+            
             
             self.saved_data_available = False
             self.saved_data_start_date = constants.MIN_DATE
@@ -172,6 +186,7 @@ class Equity:
 
         """
         #print('request data: ' + self.name)
+        print("request data: " + self.name)
         self.data = request_hist_data(self.provider,self.provider_code, self.unit,constants.MIN_DATE,datetime.datetime.now())
         
         self.data.columns = [self.name] #remove names

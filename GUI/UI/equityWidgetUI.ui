@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>270</width>
-    <height>343</height>
+    <height>421</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -20,37 +20,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="12" column="1" colspan="2">
-    <widget class="QLineEdit" name="dataFileLineEdit">
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="15" column="1">
-    <widget class="QDateEdit" name="saved_data_end_date">
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="0" colspan="4">
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>ISIN</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="1" colspan="3">
     <widget class="QLineEdit" name="name">
      <property name="readOnly">
@@ -58,48 +27,10 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1" colspan="3">
-    <widget class="QLineEdit" name="type">
+   <item row="9" column="1" colspan="3">
+    <widget class="QLineEdit" name="providerCodeLineEdit">
      <property name="readOnly">
       <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="12" column="0">
-    <widget class="QLabel" name="dataFileLabel">
-     <property name="text">
-      <string>Data file</string>
-     </property>
-    </widget>
-   </item>
-   <item row="14" column="1">
-    <widget class="QDateEdit" name="saved_data_start_date">
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-     <property name="buttonSymbols">
-      <enum>QAbstractSpinBox::NoButtons</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Equity type</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="12" column="3">
-    <widget class="QToolButton" name="dataFileButton">
-     <property name="text">
-      <string>...</string>
      </property>
     </widget>
    </item>
@@ -110,15 +41,121 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1" colspan="2">
-    <widget class="QLineEdit" name="equity_file">
+   <item row="15" column="0">
+    <widget class="QLabel" name="dataFileLabel">
+     <property name="text">
+      <string>Data file</string>
+     </property>
+    </widget>
+   </item>
+   <item row="17" column="1">
+    <widget class="QDateEdit" name="saved_data_start_date">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="1" colspan="2">
+    <widget class="QLineEdit" name="dataFileLineEdit">
      <property name="readOnly">
       <bool>true</bool>
      </property>
     </widget>
    </item>
+   <item row="9" column="0">
+    <widget class="QLabel" name="providerCodeLabel">
+     <property name="text">
+      <string>Provider code (id)</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1" colspan="3">
+    <widget class="QLineEdit" name="universeLineEdit"/>
+   </item>
+   <item row="17" column="0">
+    <widget class="QLabel" name="dataStartLabel">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>Saved data start</string>
+     </property>
+    </widget>
+   </item>
+   <item row="18" column="0">
+    <widget class="QLabel" name="dataEndLabel">
+     <property name="text">
+      <string>Saved data end</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="1" colspan="3">
     <widget class="QLineEdit" name="ISIN">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="3">
+    <widget class="QToolButton" name="urlButton">
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Equity file</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1" colspan="3">
+    <widget class="QLineEdit" name="providerLineEdit">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="0" colspan="4">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Symbol</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLabel" name="secIdLabel">
+     <property name="text">
+      <string>secId</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Equity type</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLineEdit" name="symbol">
+     <property name="maximumSize">
+      <size>
+       <width>40</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="readOnly">
       <bool>true</bool>
      </property>
@@ -131,24 +168,42 @@
      </property>
     </widget>
    </item>
-   <item row="14" column="0">
-    <widget class="QLabel" name="dataStartLabel">
-     <property name="enabled">
+   <item row="18" column="1">
+    <widget class="QDateEdit" name="saved_data_end_date">
+     <property name="readOnly">
       <bool>true</bool>
      </property>
-     <property name="text">
-      <string>Saved data start</string>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
     </widget>
    </item>
-   <item row="6" column="1" colspan="3">
-    <widget class="QLineEdit" name="providerLineEdit">
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="unit">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>40</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>40</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="readOnly">
       <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="16" column="0" colspan="4">
+   <item row="19" column="0" colspan="4">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
       <number>0</number>
@@ -187,6 +242,37 @@
      </item>
     </layout>
    </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>ISIN</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="1" colspan="2">
+    <widget class="QLineEdit" name="urlLineEdit"/>
+   </item>
+   <item row="2" column="1" colspan="3">
+    <widget class="QLineEdit" name="type">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="3">
+    <widget class="QToolButton" name="dataFileButton">
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
    <item row="4" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
@@ -194,80 +280,31 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_6">
+   <item row="10" column="0">
+    <widget class="QLabel" name="urlLabel">
      <property name="text">
-      <string>Equity file</string>
+      <string>URL</string>
      </property>
     </widget>
    </item>
-   <item row="15" column="0">
-    <widget class="QLabel" name="dataEndLabel">
-     <property name="text">
-      <string>Saved data end</string>
+   <item row="7" column="1" colspan="3">
+    <widget class="QLineEdit" name="secIdLineEdit"/>
+   </item>
+   <item row="3" column="1" colspan="2">
+    <widget class="QLineEdit" name="equity_file">
+     <property name="readOnly">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
    <item row="8" column="0">
-    <widget class="QLabel" name="providerCodeLabel">
+    <widget class="QLabel" name="universeLabel">
      <property name="text">
-      <string>Provider code</string>
+      <string>universe</string>
      </property>
     </widget>
    </item>
-   <item row="8" column="1" colspan="3">
-    <widget class="QLineEdit" name="providerCodeLineEdit">
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>Symbol</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QLineEdit" name="unit">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>40</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="baseSize">
-      <size>
-       <width>40</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QLineEdit" name="symbol">
-     <property name="maximumSize">
-      <size>
-       <width>40</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="17" column="0" colspan="4">
+   <item row="20" column="0" colspan="4">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

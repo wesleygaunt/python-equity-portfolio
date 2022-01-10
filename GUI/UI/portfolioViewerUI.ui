@@ -105,8 +105,44 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Data</string>
+    </property>
+    <widget class="QMenu" name="menuCreate_equity">
+     <property name="title">
+      <string>Create equity</string>
+     </property>
+     <addaction name="actionCreate_from_morningstar_list"/>
+    </widget>
+    <addaction name="actionLoad_data"/>
+    <addaction name="menuCreate_equity"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionSell_price_calculator"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuTools"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLoad_data">
+   <property name="text">
+    <string>Load data</string>
+   </property>
+  </action>
+  <action name="actionCreate_from_morningstar_list">
+   <property name="text">
+    <string>Create from morningstar list</string>
+   </property>
+  </action>
+  <action name="actionSell_price_calculator">
+   <property name="text">
+    <string>Sell price calculator</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>

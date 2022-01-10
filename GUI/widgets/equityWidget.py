@@ -12,6 +12,7 @@ from chartWidget import chartWidget
 from equity import Equity
 import warnings
 import subprocess
+import webbrowser
 """
 if using this widget inside a parent the following needs to be implemented:
     
@@ -37,6 +38,7 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         self.chartButton.clicked.connect(self.__toggle_chart)
         self.equityFileButton.clicked.connect(self.open_equity_file)
         self.dataFileButton.clicked.connect(self.open_data_file)
+        self.urlButton.clicked.connect(self.open_url)
         #self.layout().setSizeConstraint(QtWidgets.QLayout.SetFixedSize) #fixed size!
         self.setFixedSize(self.size())
         
@@ -75,6 +77,13 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         self.name.setText(self.equity.name)
         self.ISIN.setText(self.equity.ISIN)
         self.type.setText(self.equity.equity_type)
+        self.secIdLineEdit.setText(self.equity.secId)
+        self.universeLineEdit.setText(self.equity.universe)
+        self.urlLineEdit.setText(self.equity.url)
+        
+        
+        
+        
         self.equity_file.setText(self.equity.equity_filename)
         self.unit.setText(self.equity.unit)
         self.symbol.setText(self.equity.symbol)
@@ -164,3 +173,7 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         subprocess.Popen(r'explorer /select,'+ self.equity.historical_data_filename)
     def open_equity_file(self):
         subprocess.Popen(r'explorer /select,'+ self.equity.equity_filename)
+        
+    def open_url(self):
+        if(self.equity.url != ''):
+            webbrowser.open(self.equity.url)

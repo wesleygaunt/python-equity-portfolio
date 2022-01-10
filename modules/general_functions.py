@@ -68,6 +68,14 @@ def capitalize_and_underscore(input_string):
     input_string = str(input_string)
     output_string = input_string.replace(" ","_").replace("-", "_").upper()
     output_string = remove_duplicate_chars(output_string)
+    
+    #remove trailing underscore
+    try:
+        if(output_string[-1] == '_'):
+            output_string = output_string[0:-1]
+    except:
+        pass
+        
     return output_string
 
 def remove_duplicate_chars(input_string):

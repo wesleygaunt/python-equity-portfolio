@@ -27,16 +27,16 @@ from equity import Equity
 
 from equityWidget import equityWidget
 
-rightmove = data.rightmove
-tesco = data.tesco
-astrazeneca = data.astrazeneca
-shell = data.shell
+# rightmove = data.rightmove
+# tesco = data.tesco
+# astrazeneca = data.astrazeneca
+# shell = data.shell
 
-equity_dict = equity.EquityDict()
-fund_launch_date = datetime.datetime(2018,1, 1)
-equity_dict.add([rightmove,tesco])
-proportions = {rightmove.name:1,tesco.name:1}
-fund_1 = Fund('fund 1',equity_dict,proportions,fund_launch_date)
+# equity_dict = equity.EquityDict()
+# fund_launch_date = datetime.datetime(2018,1, 1)
+# equity_dict.add([rightmove,tesco])
+# proportions = {rightmove.name:1,tesco.name:1}
+# fund_1 = Fund('fund 1',equity_dict,proportions,fund_launch_date)
 
 
 #equity_dict = equity.EquityDict()
@@ -44,20 +44,20 @@ fund_1 = Fund('fund 1',equity_dict,proportions,fund_launch_date)
 #ed_data = ed.get_data()
 
 
-equity_data = data.rightmove.get_data()
-equity_data = analysis_functions.percent_change(equity_data)
+# equity_data = data.rightmove.get_data()
+# equity_data = analysis_functions.percent_change(equity_data)
+
+
+# rightmove = data.rightmove
+# rightmove_data = rightmove.get_data()
+
+# tesco = data.tesco
+# tesco_data = tesco.get_data()
+
+# list1 = [data.tesco,data.rightmove, data.baillie_american, data.funds]
+# list2 = [data.jupiter_uk_smaller_companies,list1,equity_dict]
 
 DATA_ROLE = Qt.UserRole + 1
-
-rightmove = data.rightmove
-rightmove_data = rightmove.get_data()
-
-tesco = data.tesco
-tesco_data = tesco.get_data()
-
-list1 = [data.tesco,data.rightmove, data.baillie_american, data.funds]
-list2 = [data.jupiter_uk_smaller_companies,list1,equity_dict]
-
 
 class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, data_to_show,*args, **kwargs):
@@ -238,12 +238,3 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
         if(type(selectedItem) == Equity):
             widget = equityWidget(selectedItem)
             widget.show()
-
-
-
-equities = [data.baillie_american, data.tesco, data.ceres, data.rightmove, fund_1]
-
-app = QtWidgets.QApplication(sys.argv)
-main_window = portfolioViewer(data.all_equities)
-main_window.show()
-app.exec()

@@ -161,14 +161,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             profit = (percentage_profit/100)*self.buy_due
             profit = round(profit,2)
             self.ProfitEdit.setText(str(profit))
-            
-            
-            
-        
-                
-            
-    
-        
+                  
 
     def calculate(self):
         buy_vals_valid = self.get_buy_vals()
@@ -253,6 +246,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.pos_25_price.setText(str(pos_25_sell_price))
             
         else:
+            pass
             print("enter vals")
 
       
