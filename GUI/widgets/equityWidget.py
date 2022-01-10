@@ -44,7 +44,7 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         
         self.setWindowFlags(
             self.windowFlags() 
-            &~Qt.WindowMinimizeButtonHint 
+            &~Qt.WindowMinimizeButtonHint
             &~Qt.WindowMaximizeButtonHint)
         
         
@@ -62,12 +62,12 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         self.chart = chartWidget(owner = self) #new window
         self.chart.toggle_legend(False)
         self.chart.toggle_axis_options(False)
-        self.chart.setFixedSize(self.chart.size())
+        #self.chart.setFixedSize(self.chart.size())
         self.chart.legendButton.hide()
-        self.chart.setWindowFlags(
-            self.chart.windowFlags()
-            &~Qt.WindowMinimizeButtonHint 
-            &~Qt.WindowMaximizeButtonHint)
+        # self.chart.setWindowFlags(
+        #     self.chart.windowFlags()
+        #     &~Qt.WindowMinimizeButtonHint 
+        #     &~Qt.WindowMaximizeButtonHint)
         #     self.chart.windowFlags() 
         #     | Qt.FramelessWindowHint)
         

@@ -1,20 +1,35 @@
 # -*- coding: utf-8 -*-
 """
+Created on Mon Jan 10 19:07:17 2022
+
+@author: Test
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Thu Jan 28 19:22:56 2021
 
 @author: Test
 """
-import constants
-import sys
-from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtCore import Qt
 
-from sellprice import Ui_MainWindow
+from sellPriceWidgetUI import Ui_sellPriceWidget
+
+
 import buy_sell_calc_functions
 
-class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+class sellPriceWidget(QtWidgets.QWidget, Ui_sellPriceWidget):
     def __init__(self, *args, obj=None, **kwargs):
-        super(MainWindow, self).__init__(*args, **kwargs)
+        super(sellPriceWidget, self).__init__(*args, **kwargs)
         self.setupUi(self)
+        self.setFixedSize(self.size())
+        self.setWindowFlags(
+            self.windowFlags() 
+            &~Qt.WindowMinimizeButtonHint
+            &~Qt.WindowMaximizeButtonHint)
+        
+        self.setWindowTitle("Sell price calculator")
         
         self.SellUnitsComboBox.currentIndexChanged.connect(self.calculate)
         #Validators
@@ -247,13 +262,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             
         else:
             pass
-            print("enter vals")
 
       
 
-
-app = 0
-app = QtWidgets.QApplication(sys.argv)
-window = MainWindow()
-window.show()
-app.exec()

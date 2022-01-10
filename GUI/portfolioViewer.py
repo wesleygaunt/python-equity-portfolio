@@ -7,6 +7,7 @@ Created on Thu Apr  8 12:43:33 2021
 
 from portfolioViewerUI import Ui_MainWindow
 
+
 import sys
 from PyQt5 import QtWidgets, QtGui, QtCore
 
@@ -26,6 +27,7 @@ import pandas as pd
 from equity import Equity
 
 from equityWidget import equityWidget
+from sellPriceWidget import sellPriceWidget
 
 # rightmove = data.rightmove
 # tesco = data.tesco
@@ -105,6 +107,10 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
         self.collapseAllButton.clicked.connect(self.treeView.collapseAll)
         self.addToChartButton.clicked.connect(self.addToChart)
         self.keyColumnCheckBox.stateChanged.connect(self.toggleKeyColumn)
+        
+        self.actionSell_price_calculator.triggered.connect(self.show_sell_price_calculator)
+        
+        self.sub_windows = []
         
 
         
@@ -230,11 +236,17 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
         self.equityWidget.move_chart()
         super(portfolioViewer, self).moveEvent(moveEvent)
     def closeEvent(self, closeEvent):
-        self.equityWidget.close_chart()
         super(portfolioViewer, self).closeEvent(closeEvent)
+        del self.sub_windows
+        self.equityWidget.close_chart()
         
     def treeView_item_entered(self, index):
         selectedItem = self.equity_from_index(index)
         if(type(selectedItem) == Equity):
             widget = equityWidget(selectedItem)
             widget.show()
+
+    def show_sell_price_calculator(self):
+        widget = sellPriceWidget()
+        self.sub_windows.append(widget)
+        widget.show()
