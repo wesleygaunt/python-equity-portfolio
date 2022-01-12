@@ -96,7 +96,7 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
         self.treeView.header().setSectionResizeMode(3,QtWidgets.QHeaderView.Stretch)
         
         self.treeView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.treeView.activated.connect(self.treeView_item_entered)
+        self.treeView.activated.connect(self.treeView_item_activated)
 
 
         #self.treeView.header().sectionResized.connect(self.section_resized)
@@ -232,15 +232,22 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
         if(type(selectedItem) == Equity):
             self.equityWidget.set_equity(selectedItem)
             
-    def moveEvent(self, moveEvent):
-        self.equityWidget.move_chart()
-        super(portfolioViewer, self).moveEvent(moveEvent)
+    # def moveEvent(self, event):
+    #     self.equityWidget.move_chart()
+    #     super(portfolioViewer, self).moveEvent(event)
+        
     def closeEvent(self, closeEvent):
         super(portfolioViewer, self).closeEvent(closeEvent)
-        del self.sub_windows
-        self.equityWidget.close_chart()
+        #close the subwindows
+        #del self.sub_windows
+        # for sub_window in self.sub_windows:
+        #     print(sub_window)
+        #     sub_window.close()
+        app = QtWidgets.QApplication.instance()
+        app.closeAllWindows()
+        #self.equityWidget.close_chart()
         
-    def treeView_item_entered(self, index):
+    def treeView_item_activated(self, index):
         selectedItem = self.equity_from_index(index)
         if(type(selectedItem) == Equity):
             widget = equityWidget(selectedItem)

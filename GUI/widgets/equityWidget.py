@@ -13,18 +13,8 @@ from equity import Equity
 import warnings
 import subprocess
 import webbrowser
-"""
-if using this widget inside a parent the following needs to be implemented:
-    
-    def moveEvent(self, moveEvent):
-        self.equityWidget.move_chart()
-        super(equityDialog, self).moveEvent(moveEvent)
-    def closeEvent(self, closeEvent):
-        self.equityWidget.close_chart()
-        super(equityDialog, self).closeEvent(closeEvent)
-        
-as it handles move event and close events properly
-"""
+import datetime
+
 
     
 class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
@@ -42,6 +32,8 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         #self.layout().setSizeConstraint(QtWidgets.QLayout.SetFixedSize) #fixed size!
         self.setFixedSize(self.size())
         
+        
+        
         self.setWindowFlags(
             self.windowFlags() 
             &~Qt.WindowMinimizeButtonHint
@@ -51,7 +43,7 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
             
         if(type(equity) ==  Equity):
             self.set_equity(equity)
-
+            
 
         
     def set_equity(self, equity):
@@ -64,12 +56,18 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         self.chart.toggle_axis_options(False)
         #self.chart.setFixedSize(self.chart.size())
         self.chart.legendButton.hide()
-        # self.chart.setWindowFlags(
-        #     self.chart.windowFlags()
-        #     &~Qt.WindowMinimizeButtonHint 
-        #     &~Qt.WindowMaximizeButtonHint)
-        #     self.chart.windowFlags() 
-        #     | Qt.FramelessWindowHint)
+        
+        if(self.parent() == None):
+            #if it is a window, make it a popout widget
+            self.chart.setWindowFlags(
+                # self.chart.windowFlags()
+                # &~Qt.WindowMinimizeButtonHint 
+                # &~Qt.WindowMaximizeButtonHint)
+                self.chart.windowFlags() 
+                | Qt.FramelessWindowHint)
+        
+        self.chart.closed.connect(self.chart_closing)
+
         
         self.equity = equity
         self.setWindowTitle(self.equity.name + " - Equity")
@@ -93,8 +91,25 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         if(self.equity.saved_data_available):
             self.dataFileLineEdit.setText(self.equity.historical_data_filename)
             self.saved_data_start_date.setDate(self.equity.saved_data_start_date)                   
-            self.saved_data_end_date.setDate(self.equity.saved_data_end_date)    
+            self.saved_data_end_date.setDate(self.equity.saved_data_end_date)  
+            
+            self.dataFileLabel.setEnabled(True) 
+            self.dataFileLineEdit.setEnabled(True)
+            self.dataFileButton.setEnabled(True)
+
+            self.dataStartLabel.setEnabled(True) 
+            self.saved_data_start_date.setEnabled(True)                   
+            self.dataEndLabel.setEnabled(True) 
+            self.saved_data_end_date.setEnabled(True)
+            
+            
+            
         else:
+            
+            self.dataFileLineEdit.setText("")
+            self.saved_data_start_date.setDate(datetime.datetime(2000,1,1))
+            self.saved_data_end_date.setDate(datetime.datetime(2000,1,1))
+            
             self.dataFileLabel.setEnabled(False) 
             self.dataFileLineEdit.setEnabled(False)
             self.dataFileButton.setEnabled(False)
@@ -116,12 +131,19 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
                 
             self.chart.add_equity(self.equity)
             self.chart.setWindowTitle(self.equity.name + " - Chart")
-
-            self.move_chart()
+            
+        
+            if(self.parent() == None):
+                #place the chart to the right of the widget if it is a free floating window
+                self.move_chart()
             
             self.chart.show()
 
             self.chartButton.setArrowType(Qt.ArrowType.LeftArrow)
+            
+            self.set_equity(self.equity)    #this will enable the saved data buttons if it hsa to retrieve and then save data!
+            
+            
             #print("show")
             
         else:
@@ -132,42 +154,37 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
 
      
     def move_chart(self):
-        # print("geometry: " + str(self.geometry()))
-        # print("rect: " + str(self.rect()))
-        # print("frameGeometry " + str(self.frameGeometry()))
-        topLeft = self.geometry().topLeft()
-        # print(self.mapToGlobal(topLeft))
-        globalTopLeft = self.mapToGlobal(topLeft)
-        #commented out as there is currently a problem
+        #will only be run if self.parent == None
+        pos = self.pos()
         
-        if(self.parent() == None):
-            pos = self.pos()
-        else:
-            pos = self.mapToGlobal(self.pos())
-            #not yet working!
         chartpos = QtCore.QPoint(pos.x() + self.width(),pos.y())
 
         try:
             self.chart.move(chartpos)
         except:
-                pass
+            pass
 
-    def chart_closing(self):
-        self.reset_chart_button()
+    
+                
         
-    def close_chart(self):
+    def moveEvent(self, event):
+        if(self.parent() == None):
+            #place the chart to the right of the widget if it is a free floating window
+            self.move_chart()        
+        super(equityWidget, self).moveEvent(event)
+    
+    
+    def chart_closing(self):
+        #https://stackoverflow.com/questions/14017102/how-to-detect-parent-widget-close-in-pyqt
+        self.reset_chart_button()
+              
+    def closeEvent(self, event):
         try:
             self.chart.close()
         except:
             pass
         
-    def moveEvent(self, moveEvent):
-        self.move_chart()
-        super(equityWidget, self).moveEvent(moveEvent)
-              
-    def closeEvent(self, closeEvent):
-        self.close_chart()
-        super(equityWidget, self).closeEvent(closeEvent)
+        super(equityWidget, self).closeEvent(event)
         
     def open_data_file(self):
         subprocess.Popen(r'explorer /select,'+ self.equity.historical_data_filename)

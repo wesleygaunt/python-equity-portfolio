@@ -53,8 +53,12 @@ NORMALISE_SLIDER_AUTO = 5
 
     
 class chartWidget(QtWidgets.QWidget, Ui_chartWidget):
+    closed = QtCore.pyqtSignal()
+
     def __init__(self, owner = None, *args, **kwargs):
         super(chartWidget, self).__init__(*args, **kwargs)
+        
+        
         
         self.owner = owner
         
@@ -171,10 +175,7 @@ class chartWidget(QtWidgets.QWidget, Ui_chartWidget):
         self.normaliseDateButton.clicked.connect(self.__normalise_to_date_clicked)
         self.normaliseSliderButton.clicked.connect(self.__normalise_to_slider_clicked)
         
-        self.autoNormaliseCheckBox.stateChanged.connect(self.__autonormalise_toggled)
-        
-    
-    
+        self.autoNormaliseCheckBox.stateChanged.connect(self.__autonormalise_toggled)           
     
     def add_equity(self, obj):
         if(type(obj) == Equity or type(obj) == Fund):
@@ -604,7 +605,7 @@ class chartWidget(QtWidgets.QWidget, Ui_chartWidget):
             self.axisOptionsFrame.hide()
             self.axisOptionsButton.setArrowType(Qt.ArrowType.DownArrow)
             
-    def closeEvent(self, closeEvent):
+    def closeEvent(self, event):
         """
         This handles the interatction with the owener, if it is opened in a new window
 
@@ -618,7 +619,6 @@ class chartWidget(QtWidgets.QWidget, Ui_chartWidget):
         None.
 
         """
-        if(type(self.owner) != None):
-            self.owner.chart_closing()
-        super(chartWidget, self).closeEvent(closeEvent)
         
+        self.closed.emit()
+        super(chartWidget, self).closeEvent(event)
