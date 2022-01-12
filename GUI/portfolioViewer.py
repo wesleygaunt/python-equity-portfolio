@@ -16,7 +16,7 @@ from PyQt5.QtCore import Qt
 import analysis_functions
 import equity
 
-import data
+#import data
 
 from collections import abc
 import general_functions

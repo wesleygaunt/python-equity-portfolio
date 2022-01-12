@@ -5,6 +5,8 @@ Only the equities using the yahoo data source will be available on GitHub.
 """
 import equity
 #funds
+
+print("import data")
 Halifax_FTSE100_Tracker = equity.Equity(name = 'Halifax UK FTSE 100 Index Tracking A',ISIN='GB00B3LRRF45',provider='morningstar',provider_code='F0GBR06I23]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
 
 jupiter_uk_smaller_companies = equity.Equity(name = 'Jupiter UK Smaller Companies I ACC',ISIN='GB00B3LRRF45',provider='morningstar',provider_code='F00000OSWK]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
