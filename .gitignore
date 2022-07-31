@@ -123,9 +123,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-modules/list_morningstar_funds.py
-modules/morningstar_data_request.py
-modules/ft_data_request.py
+#modules/list_morningstar_funds.py
+#modules/morningstar_data_request.py
+#modules/ft_data_request.py
 
 modules/dependancies_all.py
 sandbox.py
