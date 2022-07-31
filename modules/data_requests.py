@@ -10,14 +10,19 @@ import requests
 import general_functions
 
 #do not upload to GitHub
-from ft_data_request import ft_data_request
-from morningstar_data_request import morningstar_data_request
+#from ft_data_request import ft_data_request
+#from morningstar_data_request import morningstar_data_request
    
 
 #INTERVAL_WEEK = 'week'
 #INTERVAL_DAY = 'day'
 #TIMEDELTA_DAY = datetime.timedelta(days = 1)
 #TIMEDELTA_WEEK = datetime.timedelta(weeks = 1)
+
+def morningstar_data_request(provider_code, start_date, end_date):
+    url = "https://tools.morningstar.co.uk/api/rest.svc/timeseries_cumulativereturn/t92wz0sj7c?currencyId=GBP&idtype=Morningstar&frequency=daily&startDate=1970-01-01&performanceType=&outputType=COMPACTJSON&id=F0000150IV]2]0]FOGBR$$ALL&decPlaces=8&applyTrackRecordExtension=true"
+
+    return
 
 def yahoo_request(provider_code,start_date, end_date):
     """

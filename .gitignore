@@ -130,4 +130,4 @@ dmypy.json
 modules/dependancies_all.py
 sandbox.py
 GUI/run.bat
-GUI/UI/pyuic5_compile.bat
+GUI/UI/pyuic5_compile.batmore
