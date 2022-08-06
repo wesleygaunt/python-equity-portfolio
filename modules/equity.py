@@ -234,8 +234,24 @@ class Equity:
         data : pandas.DataFrame
             Historical data dataframe.
         """
-        if(end_date == None):
-            end_date = start_date
+        
+        
+        print(start_date)
+        print(end_date)
+        if(start_date == None):
+            start_date = constants.MIN_DATE
+            
+        now = datetime.datetime.now()
+        now = datetime.datetime(now.year, now.month, now.day)    
+        if(end_date == None or end_date > now):
+            end_date = now
+            
+        
+        start_date = general_functions.previous_weekday(start_date)
+        end_date = general_functions.previous_weekday(end_date)
+        
+        print(start_date)
+        print(end_date)
         
         self.__make_data_available()
                  
@@ -243,9 +259,6 @@ class Equity:
         
         if(start_date == None and end_date == None): #empty request, return all possible
             return data
-        
-        
-          
 
         if(self.saved_data_start_date <= start_date and start_date <= self.saved_data_end_date):
             #print('start_date available')

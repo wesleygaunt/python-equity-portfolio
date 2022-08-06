@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 This module creates equities and equity_dicts and populates them with data. 
-Only the equities using the yahoo data source will be available on GitHub.
 """
 import equity
 #funds

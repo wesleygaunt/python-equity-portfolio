@@ -12,11 +12,12 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import general_functions
 import time
-from data import jupiter_uk_smaller_companies as current_equity
+#from data import jupiter_uk_smaller_companies as current_equity
 #equity_dict = equity.EquityDict()
 
 
-
+jupiter_uk_smaller_companies = equity.Equity(name = 'Jupiter UK Smaller Companies I ACC',ISIN='GB00B3LRRF45',provider='morningstar',provider_code='F00000OSWK]2]0]FOGBR$$ALL',unit = 'GBP',equity_type='fund')
+#current_equity = jupiter_uk_smaller_companies
 
 #eq = equity_dict.get_equity('Jupiter UK Smaller Companies I ACC')
 
@@ -61,45 +62,40 @@ from data import jupiter_uk_smaller_companies as current_equity
 start = datetime.datetime(2000, 1,1)
 end = datetime.datetime(2020, 11, 30)
 
-current_equity.get_data(start_date = start, end_date = end)
+jupiter_uk_smaller_companies.get_data(start_date = start, end_date = end)
 
 #baillie_american.save_equity()
 
-print(0)
-data_0 = current_equity.get_data()
+print(0,flush = True)
+data_0 = jupiter_uk_smaller_companies.get_data()
 
 print(1)
 
 start_1 = datetime.datetime(year = 2016,month = 1,day = 11) #open
 end_1 = datetime.datetime(year = 2017,month = 10,day = 30) #open
-data_1 = current_equity.get_data(start_date = start_1, end_date = end_1) #both open period
+data_1 = jupiter_uk_smaller_companies.get_data(start_date = start_1, end_date = end_1) #both open period
 
 print(2)
 
 start_2 = datetime.datetime(year = 2012,month = 5,day = 11)
 end_2 = datetime.datetime(year = 2012,month = 5,day = 11)
-data_2 = current_equity.get_data(start_date = start_2, end_date = end_2) #open 1 day
+data_2 = jupiter_uk_smaller_companies.get_data(start_date = start_2, end_date = end_2) #open 1 day
 print(3)
 
 start_3 = datetime.datetime(year = 1970,month = 5,day = 11)
 end_3 = datetime.datetime(year = 2012,month = 5,day = 11)
-data_3 = current_equity.get_data(start_date = start_3, end_date = end_3) #no start, open end
+data_3 = jupiter_uk_smaller_companies.get_data(start_date = start_3, end_date = end_3) #no start, open end
 
 print(4)
 
 start_4 = datetime.datetime(year = 2012,month = 5,day = 11)
 end_4 = datetime.datetime(year = 2024,month = 5,day = 11)
-data_4 = current_equity.get_data(start_date = start_4, end_date = end_4) #start available, end in the future
+data_4 = jupiter_uk_smaller_companies.get_data(start_date = start_4, end_date = end_4) #start available, end in the future
 
+print(5)
 
-start_5 = datetime.datetime(year = 2020,month = 5,day = 11)
-end_5 = datetime.datetime(year = 2022,month = 5,day = 11)
-data_5 = current_equity.get_data(start_date = start_5, end_date = None) #start available, end in the future
-
-
-
-
-
+start_5 = datetime.datetime(year = 2012,month = 5,day = 11)
+data_5 = jupiter_uk_smaller_companies.get_data(start_date = start_5, end_date = None) #start available, no end. should return single day
 
 #data = analysis_functions.percent_change(data,method = analysis_functions.FROM_FIRST_ITEM)
 #plt.plot(data)

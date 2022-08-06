@@ -17,7 +17,7 @@ import analysis_functions
 
 import equity
 
-from chartDialog import chartDialog
+#from chartDialog import chartDialog
 from chartWidget import chartWidget
 
 #set up the equities
@@ -27,14 +27,14 @@ from chartWidget import chartWidget
 baillie_american = data.baillie_american
 
 ed = equity.EquityDict()
-ed.add([data.baillie_american,data.rightmove])
+ed.add([data.baillie_american,data.ceres])
 
 # ed = data.funds
 
 #get data, note as the data on 2020 12 5 is not available, the next available data point is returned.
-#rightmove_period = rightmove.get_data(start_date = dt.datetime(2000, 12, 22), end_date = dt.datetime(2020, 12, 5))
-rightmove_data = data.rightmove.get_data()
-rightmove_data = analysis_functions.percent_change(rightmove_data)
+#rightmove_period = rightmove.get_data(start_date = dt.datetime(2000, 12, 22), end_date = dt.datetime(2020, 12, 5
+ceres_data = data.ceres.get_data()
+ceres_data = analysis_functions.percent_change(ceres_data)
 
 ed_data = ed.get_data()
 #dict_data =  analysis_functions.percent_change(dict_data)
