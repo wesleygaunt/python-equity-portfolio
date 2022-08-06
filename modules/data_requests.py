@@ -9,6 +9,12 @@ from io import StringIO
 import requests
 import general_functions
 
+code = 'F0000150IV'
+
+start = datetime.datetime(2021,1,1)
+end = datetime.datetime(2022,1,1)
+
+
 #do not upload to GitHub
 #from ft_data_request import ft_data_request
 #from morningstar_data_request import morningstar_data_request
@@ -20,9 +26,42 @@ import general_functions
 #TIMEDELTA_WEEK = datetime.timedelta(weeks = 1)
 
 def morningstar_data_request(provider_code, start_date, end_date):
-    url = "https://tools.morningstar.co.uk/api/rest.svc/timeseries_cumulativereturn/t92wz0sj7c?currencyId=GBP&idtype=Morningstar&frequency=daily&startDate=1970-01-01&performanceType=&outputType=COMPACTJSON&id=F0000150IV]2]0]FOGBR$$ALL&decPlaces=8&applyTrackRecordExtension=true"
-
-    return
+    try:
+        #if datetime format
+        start_date_iso = start_date.date().isoformat()
+    except:
+        #if date format
+        start_date_iso = start_date.isoformat()
+    
+    try:
+        #if datetime format
+        end_date_iso = end_date.date().isoformat()
+    except:
+        #if date format
+        end_date_iso = end_date.isoformat()
+        
+    url = ("https://tools.morningstar.co.uk/api/rest.svc/"
+    #+ "timeseries_cumulativereturn/"
+    + "timeseries_price/"
+    + "t92wz0sj7c?"
+    + "currencyId=GBP"
+    + "&idtype=Morningstar"
+    + "&frequency=daily"
+    + "&startDate=" + start_date_iso
+    + "&endDate=" + end_date_iso
+    + "&performanceType="
+    + "&outputType=COMPACTJSON"
+    + "&id=" + provider_code
+    + "]2]0]FOGBR$$ALL"
+    + "&decPlaces=8"
+    + "&applyTrackRecordExtension=true")
+    
+    df = pd.read_json(url)
+    df.columns = ['Date', 'Price']
+    df['Date'] = pd.to_datetime(df['Date'], unit = 'ms')
+    df.index = pd.DatetimeIndex(df['Date'])
+    df.drop('Date',1,inplace = True) #same as del df['Date']
+    return df
 
 def yahoo_request(provider_code,start_date, end_date):
     """
@@ -75,6 +114,7 @@ def yahoo_request(provider_code,start_date, end_date):
     end_date_unix = general_functions.unix_date(end_date + datetime.timedelta(days = 1))    #yahoo request is not inclusive of the end date, so add a single day (in seconds) onto the 
         
     url = "https://query1.finance.yahoo.com/v7/finance/download/"+provider_code+"?"+"period1="+ str(start_date_unix) + "&period2=" + str(end_date_unix) + "&interval=1d&events=history"
+    print(url)
     #https://stackoverflow.com/questions/16511337/correct-way-to-try-except-using-python-requests-module
     try:
         r = requests.get(url,allow_redirects = True)
@@ -195,7 +235,8 @@ def investing_com_csv_request(provider_code,start_date, end_date):
 
 
 #store the functions in a dictionary, in a functional manner
-request_functions = {'yahoo':yahoo_request,'investing_com_csv':investing_com_csv_request,'ft': ft_data_request,'morningstar':morningstar_data_request}
+#
+#request_functions = {'yahoo':yahoo_request,'investing_com_csv':investing_com_csv_request,'ft': ft_data_request,'morningstar':morningstar_data_request}
    
 def request_hist_data(provider, provider_code, unit, start_date, end_date = None):
     """
