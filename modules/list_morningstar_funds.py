@@ -1,16 +1,17 @@
 import pandas as pd
 
-def request_morningstar_funds():
+
+def request_morningstar_funds(page = 1, pageSize = 10, universeId = "FOGBR$$ALL"):
     url = ("https://tools.morningstar.co.uk/api/rest.svc/klr5zyak8x/security/"
            + "screener?"
-           + "page=1"
-           + "&pageSize=10000"
+           + "page=" + str(page)
+           + "&pageSize=" + str(pageSize)
            + "&sortOrder=LegalName%20asc"
            + "&outputType=json"
            + "&version=1"
            + "&languageId=en-GB"
            + "&currencyId=GBP"
-           + "&universeIds=FOGBR%24%24ALL"
+           + "&universeIds=" + universeId
            + "&securityDataPoints="
            + "SecId|"
            + "Name|"
@@ -73,14 +74,40 @@ def request_morningstar_funds():
     
     df = pd.read_json(url)
     total = df.iloc[0]['total']
-    print(total)
-    
     data_list = list(df['rows'])
-    
-    
-    
     df = pd.DataFrame(data_list)    
     
 
     
+    return total, df
+
+def list_funds(universeId = "FOGBR$$ALL", pageSize = 10000):
+    total, df = request_morningstar_funds(page = 1, pageSize = 1)
+    print(total)
+    
+    remaining_funds = total
+    page = 1
+    
+    pages = []
+    while(remaining_funds > 0):
+        print("Page = " + str(page))
+        print("Remaining funds = " + str(remaining_funds))
+        print("*********************************\n\n\n\n")
+        
+        total, current_page = request_morningstar_funds(page = page, pageSize = pageSize)
+        page = page + 1
+        remaining_funds = remaining_funds - pageSize
+        pages.append(current_page)
+        
+        
+    df = pd.concat(pages, ignore_index = True)
+    
     return df
+#df = list_funds()
+
+def save_to_JSON(dataframe, path):
+    dataframe.to_json(path + '/data.json')
+def load_from_JSON(path):
+    dataframe = pd.read_json(path + '/data.json')
+    return dataframe
+#df = request_morningstar_funds(page = 2,pageSize = 50000)

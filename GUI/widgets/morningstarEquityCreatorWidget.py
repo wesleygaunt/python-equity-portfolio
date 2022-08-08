@@ -11,7 +11,7 @@ from morningstarEquityCreatorWidgetUI import Ui_morningstarEquityCreatorWidget
 import list_morningstar_funds
 import re
 
-eq_dataframe = list_morningstar_funds.load_from_JSON('morningstar_funds_dict')
+eq_dataframe = list_morningstar_funds.load_from_JSON('/home/wes/github/python-equity-portfolio/modules')
 names = list(eq_dataframe['LegalName'])
 equity_tuples = [(index, name) for index, name in zip(range(0, len(names) + 1), names)]
 
