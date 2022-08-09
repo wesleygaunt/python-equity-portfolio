@@ -1,5 +1,6 @@
 import pandas as pd
-
+import constants
+import os
 
 def request_morningstar_funds(page = 1, pageSize = 10, universeId = "FOGBR$$ALL"):
     url = ("https://tools.morningstar.co.uk/api/rest.svc/klr5zyak8x/security/"
@@ -105,9 +106,13 @@ def list_funds(universeId = "FOGBR$$ALL", pageSize = 10000):
     return df
 #df = list_funds()
 
-def save_to_JSON(dataframe, path):
+def save_to_JSON(dataframe, path = constants.DEFAULT_DATA_FOLDER):
+    if os.path.exists(path):
+        pass
+    else:
+       os.makedirs(path)
     dataframe.to_json(path + '/data.json')
-def load_from_JSON(path):
+def load_from_JSON(path = constants.DEFAULT_DATA_FOLDER):
     dataframe = pd.read_json(path + '/data.json')
     return dataframe
 #df = request_morningstar_funds(page = 2,pageSize = 50000)
