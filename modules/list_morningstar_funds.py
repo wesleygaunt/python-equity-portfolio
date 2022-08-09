@@ -1,6 +1,7 @@
 import pandas as pd
 import constants
 import os
+import equity
 
 def request_morningstar_funds(page = 1, pageSize = 10, universeId = "FOGBR$$ALL"):
     url = ("https://tools.morningstar.co.uk/api/rest.svc/klr5zyak8x/security/"
@@ -15,16 +16,18 @@ def request_morningstar_funds(page = 1, pageSize = 10, universeId = "FOGBR$$ALL"
            + "&universeIds=" + universeId
            + "&securityDataPoints="
            + "SecId|"
+           + "ISIN|"
+           + "Universe|"
            + "Name|"
            + "PriceCurrency|"
-           + "TenforeId|"
+           # + "TenforeId|"
            + "LegalName|"
-           + "ClosePrice|"
-           + "StarRatingM255|"
-           + "SustainabilityRank|"
-           + "QuantitativeRating|"
-           + "AnalystRatingScale|"
-           + "CategoryName|"
+           # + "ClosePrice|"
+           # + "StarRatingM255|"
+           # + "SustainabilityRank|"
+           # + "QuantitativeRating|"
+           # + "AnalystRatingScale|"
+           # + "CategoryName|"
            # + "Yield_M12|"
            # + "GBRReturnD1|"
            # + "GBRReturnW1|"
@@ -93,7 +96,7 @@ def list_funds(universeId = "FOGBR$$ALL", pageSize = 10000):
     while(remaining_funds > 0):
         print("Page = " + str(page))
         print("Remaining funds = " + str(remaining_funds))
-        print("*********************************\n\n\n\n")
+        print("\n")
         
         total, current_page = request_morningstar_funds(page = page, pageSize = pageSize)
         page = page + 1
@@ -107,12 +110,33 @@ def list_funds(universeId = "FOGBR$$ALL", pageSize = 10000):
 #df = list_funds()
 
 def save_to_JSON(dataframe, path = constants.DEFAULT_DATA_FOLDER):
-    if os.path.exists(path):
-        pass
-    else:
-       os.makedirs(path)
+    if os.path.exists(path) == False:
+        os.makedirs(path)
     dataframe.to_json(path + '/data.json')
+
 def load_from_JSON(path = constants.DEFAULT_DATA_FOLDER):
-    dataframe = pd.read_json(path + '/data.json')
-    return dataframe
-#df = request_morningstar_funds(page = 2,pageSize = 50000)
+    try:
+        dataframe = pd.read_json(path + '/data.json')
+        print("morningstar fund list loading from JSON success")
+        return dataframe
+    except:
+        print("morningstar fund list loading from JSON failed")
+        return None
+def create_equity(eq_dataframe, index):
+    eq_series = eq_dataframe.loc[index]
+    
+    name = eq_series['Name']
+    ISIN = eq_series['ISIN']
+    secId = eq_series['SecId']
+    universe = eq_series['Universe']
+    provider_code = secId + ']2]0]' + universe
+    provider = 'morningstar'
+    equity_type = 'fund'
+    
+    eq = equity.Equity(name = name,ISIN = ISIN,provider = provider,provider_code =provider_code,equity_type = equity_type,secId = secId, universe=universe)
+    
+    
+    return eq
+#total, df = request_morningstar_funds(page = 1,pageSize = 5)
+#df = list_funds()
+#save_to_JSON(df)

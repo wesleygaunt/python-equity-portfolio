@@ -15,6 +15,7 @@ import json
 import analysis_functions
 from collections import UserDict
 import warnings
+import os
 
 
 class Equity:
@@ -33,8 +34,8 @@ class Equity:
         self.data = pd.DataFrame()
         self.__name = general_functions.capitalize_and_underscore(name)       #private, as not to be edited accidentally
     
-        self.equity_filename = constants.DEFAULT_DATA_FOLDER + '\\' +self.__name + '.json' #where the equity metadata will be saved
-        self.historical_data_filename = constants.DEFAULT_DATA_FOLDER + '\\' + self.__name + "_hist_data.json"
+        self.equity_filename = os.path.join(constants.DEFAULT_DATA_FOLDER,self.__name + '.json') #where the equity metadata will be saved
+        self.historical_data_filename = os.path.join(constants.DEFAULT_DATA_FOLDER,self.__name + "_hist_data.json")
         
         #morningstar specific 
         self.secId = secId
@@ -49,6 +50,7 @@ class Equity:
         if try_to_load:
             try:
                 file = open(self.equity_filename)
+                print("file load success")
                 JSON_dict = json.load(file)
                 file.close()
                 self.__dict__ = JSON_dict
@@ -62,6 +64,7 @@ class Equity:
                 #print("loaded equity: " + self.__name)
             
             except:
+                print("file load failure")
                 #print('load failed: ' + self.__name)
                 try_to_load = False #will force this into the other branch
             
