@@ -50,7 +50,7 @@ class Equity:
         if try_to_load:
             try:
                 file = open(self.equity_filename)
-                print("file load success")
+                #print("file load success")
                 JSON_dict = json.load(file)
                 file.close()
                 self.__dict__ = JSON_dict
@@ -64,7 +64,7 @@ class Equity:
                 #print("loaded equity: " + self.__name)
             
             except:
-                print("file load failure")
+                #print("file load failure")
                 #print('load failed: ' + self.__name)
                 try_to_load = False #will force this into the other branch
             
