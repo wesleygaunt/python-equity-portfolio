@@ -293,13 +293,3 @@ class Ui_sellPriceWidget(object):
         self.label_9.setText(_translate("sellPriceWidget", "Profit GBP"))
         self.label_16.setText(_translate("sellPriceWidget", "10%"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    sellPriceWidget = QtWidgets.QWidget()
-    ui = Ui_sellPriceWidget()
-    ui.setupUi(sellPriceWidget)
-    sellPriceWidget.show()
-    sys.exit(app.exec_())
-

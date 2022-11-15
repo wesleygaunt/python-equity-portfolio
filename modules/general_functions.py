@@ -7,6 +7,9 @@ import calendar
 import pandas
 from collections import abc
 
+from sys import platform
+import subprocess
+
 
 def unix_date(date):   
     """
@@ -358,3 +361,12 @@ def ensure_datetime_index(data):
             return data
     else:
         return data
+    
+
+
+def open_directory(file_path):
+    
+    if platform == 'win32': #this will also 
+        subprocess.Popen(r'explorer /select,'+ file_path)
+    elif platform.startswith('linux'):
+        subprocess.Popen(['nautilus', file_path])

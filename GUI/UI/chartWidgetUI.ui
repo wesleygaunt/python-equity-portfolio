@@ -6,74 +6,70 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>806</width>
-    <height>500</height>
+    <width>867</width>
+    <height>593</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>806</width>
-    <height>500</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QGridLayout" name="gridLayout_4">
-     <item row="0" column="1">
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="0">
-      <widget class="QToolButton" name="axisOptionsButton">
-       <property name="text">
-        <string>Options</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-       <property name="arrowType">
-        <enum>Qt::UpArrow</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QToolButton" name="legendButton">
-       <property name="text">
-        <string>Legend</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-       <property name="toolButtonStyle">
-        <enum>Qt::ToolButtonTextBesideIcon</enum>
-       </property>
-       <property name="arrowType">
-        <enum>Qt::UpArrow</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QFrame" name="chartOptionsFrame">
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QToolButton" name="axisOptionsButton">
+        <property name="text">
+         <string>Options</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+        <property name="arrowType">
+         <enum>Qt::UpArrow</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="legendButton">
+        <property name="text">
+         <string>Legend</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+        <property name="arrowType">
+         <enum>Qt::UpArrow</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="QFrame" name="axisOptionsFrame">
@@ -98,24 +94,22 @@
       </property>
       <item>
        <widget class="QGroupBox" name="verticalAxisOptionsGroupBox">
-        <property name="maximumSize">
-         <size>
-          <width>400</width>
-          <height>16777215</height>
-         </size>
-        </property>
         <property name="title">
          <string>Vertical Axis</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_10">
-         <item row="2" column="4">
-          <widget class="QPushButton" name="normaliseSliderButton">
+         <item row="2" column="3">
+          <widget class="QDateEdit" name="normaliseDateEdit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="normaliseStartButton">
            <property name="maximumSize">
             <size>
              <width>50</width>
@@ -123,7 +117,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Slider</string>
+            <string>Start</string>
            </property>
           </widget>
          </item>
@@ -143,23 +137,6 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="5">
-          <widget class="QCheckBox" name="autoNormaliseCheckBox">
-           <property name="text">
-            <string>Auto</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="3">
-          <widget class="QDateEdit" name="normaliseDateEdit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="0">
           <widget class="QRadioButton" name="valueRadioButton">
            <property name="text">
@@ -167,8 +144,14 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QPushButton" name="normaliseStartButton">
+         <item row="2" column="4">
+          <widget class="QPushButton" name="normaliseSliderButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="maximumSize">
             <size>
              <width>50</width>
@@ -176,7 +159,7 @@
             </size>
            </property>
            <property name="text">
-            <string>Start</string>
+            <string>Slider</string>
            </property>
           </widget>
          </item>
@@ -199,37 +182,74 @@
            </property>
           </widget>
          </item>
+         <item row="2" column="5">
+          <widget class="QCheckBox" name="autoNormaliseCheckBox">
+           <property name="text">
+            <string>Auto</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>6</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <widget class="QGroupBox" name="horizontalAxisOptionsGroupBox">
-        <property name="maximumSize">
-         <size>
-          <width>400</width>
-          <height>84</height>
-         </size>
-        </property>
         <property name="title">
          <string>Horizontal Axis</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
+         <item row="2" column="5">
+          <widget class="QPushButton" name="_3YPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>3Y</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="6">
+          <widget class="QPushButton" name="_6MPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>6M</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="4">
+          <widget class="QPushButton" name="_3MPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>3M</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="10">
+          <widget class="QPushButton" name="maxPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Max</string>
+           </property>
+          </widget>
+         </item>
          <item row="2" column="8">
           <widget class="QPushButton" name="_5YPushButton">
            <property name="maximumSize">
@@ -240,6 +260,32 @@
            </property>
            <property name="text">
             <string>5Y</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="7">
+          <widget class="QPushButton" name="_1YPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>1Y</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="9">
+          <widget class="QPushButton" name="_10YPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>10Y</string>
            </property>
           </widget>
          </item>
@@ -273,45 +319,6 @@
            </item>
           </layout>
          </item>
-         <item row="2" column="4">
-          <widget class="QPushButton" name="_3MPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>3M</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="7">
-          <widget class="QPushButton" name="_1YPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>1Y</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="5">
-          <widget class="QPushButton" name="_3YPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>3Y</string>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="3">
           <widget class="QPushButton" name="_1MPushButton">
            <property name="maximumSize">
@@ -325,50 +332,11 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="9">
-          <widget class="QPushButton" name="_10YPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>10Y</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="6">
-          <widget class="QPushButton" name="_6MPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>6M</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="10">
-          <widget class="QPushButton" name="maxPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Max</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_3">
+       <spacer name="horizontalSpacer_4">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>

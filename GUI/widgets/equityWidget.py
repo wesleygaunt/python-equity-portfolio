@@ -14,6 +14,8 @@ import warnings
 import subprocess
 import webbrowser
 import datetime
+import os
+import general_functions
 
 
     
@@ -187,9 +189,21 @@ class equityWidget(QtWidgets.QWidget, Ui_equityWidget):
         super(equityWidget, self).closeEvent(event)
         
     def open_data_file(self):
-        subprocess.Popen(r'explorer /select,'+ self.equity.historical_data_filename)
+        #subprocess.Popen(r'explorer /select,'+ self.equity.historical_data_filename)
+        #directory = os.path.dirname(self.equity_historical_data)
+        
+        
+    
+        #subprocess.Popen(['xdg-open', self.equity.historical_data_filename])
+        
+        general_functions.open_directory(self.equity.historical_data_filename)
+
+        #os.system('xdg-open ' + self.equity.historical_data_filename)
+
     def open_equity_file(self):
-        subprocess.Popen(r'explorer /select,'+ self.equity.equity_filename)
+        #subprocess.Popen(r'explorer /select,'+ self.equity.equity_filename)
+        general_functions.open_directory(self.equity.equity_filename)
+
         
     def open_url(self):
         if(self.equity.url != ''):

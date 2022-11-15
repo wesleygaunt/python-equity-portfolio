@@ -176,13 +176,3 @@ class Ui_equityWidget(object):
         self.urlLabel.setText(_translate("equityWidget", "URL"))
         self.universeLabel.setText(_translate("equityWidget", "universe"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    equityWidget = QtWidgets.QWidget()
-    ui = Ui_equityWidget()
-    ui.setupUi(equityWidget)
-    equityWidget.show()
-    sys.exit(app.exec_())
-

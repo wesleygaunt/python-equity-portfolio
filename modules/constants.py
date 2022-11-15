@@ -6,6 +6,9 @@ Defines constants to be used throughout the project - ie API keys and data folde
 import datetime
 from sys import platform
 
+
+MIN_DATE = datetime.datetime(year = 1970,month = 1,day = 1)
+
 if platform == 'win32':
 
     #Folders - set these up in advance. 
@@ -18,4 +21,10 @@ elif platform.startswith('linux'):
     
     
     
-MIN_DATE = datetime.datetime(year = 1970,month = 1,day = 1)
+
+
+    
+
+    
+    
+    

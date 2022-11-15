@@ -46,13 +46,3 @@ class Ui_morningstarEquityCreatorWidget(object):
         self.resetButton.setText(_translate("morningstarEquityCreatorWidget", "Reset"))
 
 from equityWidget import equityWidget
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    morningstarEquityCreatorWidget = QtWidgets.QWidget()
-    ui = Ui_morningstarEquityCreatorWidget()
-    ui.setupUi(morningstarEquityCreatorWidget)
-    morningstarEquityCreatorWidget.show()
-    sys.exit(app.exec_())
-
