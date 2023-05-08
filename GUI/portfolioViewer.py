@@ -28,6 +28,8 @@ from equity import Equity
 
 from equityWidget import equityWidget
 from sellPriceWidget import sellPriceWidget
+from morningstarEquityCreatorWidget import morningstarEquityCreatorWidget
+
 
 # rightmove = data.rightmove
 # tesco = data.tesco
@@ -109,7 +111,7 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
         self.keyColumnCheckBox.stateChanged.connect(self.toggleKeyColumn)
         
         self.actionSell_price_calculator.triggered.connect(self.show_sell_price_calculator)
-        
+        self.actionCreate_from_morningstar_list.triggered.connect(self.show_create_from_morningstar_list)
         self.sub_windows = []
         
 
@@ -257,3 +259,12 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
         widget = sellPriceWidget()
         self.sub_windows.append(widget)
         widget.show()
+        
+    def show_create_from_morningstar_list(self):
+        widget = morningstarEquityCreatorWidget()
+        self.sub_windows.append(widget)
+        widget.show()
+        
+        widget.setDisabled(True)
+        widget.populate_listView()
+        widget.setEnabled(True)

@@ -198,8 +198,8 @@
          <string>Horizontal Axis</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="2" column="5">
-          <widget class="QPushButton" name="_3YPushButton">
+         <item row="2" column="7">
+          <widget class="QPushButton" name="_1YPushButton">
            <property name="maximumSize">
             <size>
              <width>40</width>
@@ -207,7 +207,7 @@
             </size>
            </property>
            <property name="text">
-            <string>3Y</string>
+            <string>1Y</string>
            </property>
           </widget>
          </item>
@@ -224,6 +224,19 @@
            </property>
           </widget>
          </item>
+         <item row="2" column="10">
+          <widget class="QPushButton" name="_10YPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>10Y</string>
+           </property>
+          </widget>
+         </item>
          <item row="2" column="4">
           <widget class="QPushButton" name="_3MPushButton">
            <property name="maximumSize">
@@ -237,59 +250,7 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="10">
-          <widget class="QPushButton" name="maxPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Max</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="8">
-          <widget class="QPushButton" name="_5YPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>5Y</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="7">
-          <widget class="QPushButton" name="_1YPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>1Y</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="9">
-          <widget class="QPushButton" name="_10YPushButton">
-           <property name="maximumSize">
-            <size>
-             <width>40</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>10Y</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3" colspan="8">
+         <item row="0" column="3" colspan="9">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QDateEdit" name="fromDateEdit"/>
@@ -319,6 +280,19 @@
            </item>
           </layout>
          </item>
+         <item row="2" column="11">
+          <widget class="QPushButton" name="maxPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Max</string>
+           </property>
+          </widget>
+         </item>
          <item row="2" column="3">
           <widget class="QPushButton" name="_1MPushButton">
            <property name="maximumSize">
@@ -329,6 +303,32 @@
            </property>
            <property name="text">
             <string>1M</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="9">
+          <widget class="QPushButton" name="_5YPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>5Y</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="8">
+          <widget class="QPushButton" name="_3YPushButton">
+           <property name="maximumSize">
+            <size>
+             <width>40</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>3Y</string>
            </property>
           </widget>
          </item>
@@ -461,7 +461,6 @@
   <tabstop>percentageRadioButton</tabstop>
   <tabstop>valueRadioButton</tabstop>
   <tabstop>normaliseSliderButton</tabstop>
-  <tabstop>_3YPushButton</tabstop>
   <tabstop>_5YPushButton</tabstop>
   <tabstop>_10YPushButton</tabstop>
   <tabstop>maxPushButton</tabstop>
