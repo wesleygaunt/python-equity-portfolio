@@ -265,6 +265,6 @@ class portfolioViewer(QtWidgets.QMainWindow, Ui_MainWindow):
         self.sub_windows.append(widget)
         widget.show()
         
-        widget.setDisabled(True)
-        widget.populate_listView()
-        widget.setEnabled(True)
+        #widget.setDisabled(True)
+        #widget.populate_listView()
+        #widget.setEnabled(True)

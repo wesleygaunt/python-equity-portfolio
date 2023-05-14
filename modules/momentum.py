@@ -25,7 +25,6 @@ def momentum(equities, months, start_date, end_date = None):
     momentum_data["int_end"] = dates_interval
     momentum_data["int_start"] = momentum_data["int_start"].shift(1)
     
-    
     percent_data_interval = analysis_functions.percent_change(equities_data_interval,analysis_functions.FROM_PREV_ITEM) 
     
     

@@ -11,7 +11,7 @@ from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from morningstarEquityCreatorWidgetUI import Ui_morningstarEquityCreatorWidget
 import list_morningstar_funds
 import re
-from time import sleep
+from time import process_time
 
 
 
@@ -36,35 +36,36 @@ class morningstarEquityCreatorWidget(QtWidgets.QWidget, Ui_morningstarEquityCrea
         self.listView.setModel(self.match_model)
         self.listView.clicked.connect(self.listView_item_clicked)
         
-
-            
-            
-        # equity_tuples = [name for name in names]
         
-        #self.populate_listView(equity_tuples)
+        
+        self.eq_dataframe = list_morningstar_funds.load_from_JSON()
+        self.names = list(self.eq_dataframe['LegalName'])
+
+        equity_tuples = [(index, name) for index, name in zip(range(0, len(self.names) + 1), self.names)]
+            
+        t1 = process_time()
+        self.populate_listView(equity_tuples)
+        #self.populate_listView_task()
+        t2 = process_time()
+        print(t2 - t1)
+        #print("end")
+
+        
         
     def populate_listView(self, equity_tuples):
         self.setDisabled(True)
-
-        
-        #self.eq_dataframe = list_morningstar_funds.load_from_JSON()
-        #self.names = list(self.eq_dataframe['LegalName'])
-        #equity_tuples = [(index, name) for index, name in zip(range(0, len(self.names) + 1), self.names)]
+     
         number_of_items = str(len(equity_tuples))
-        items = []
+        self.match_model.clear()
+
         for equity_tuple in equity_tuples:
             item = QtGui.QStandardItem(equity_tuple[1])
             item.setData(equity_tuple[1], QtCore.Qt.ToolTipRole)
             item.setData(equity_tuple[0], INDEXROLE)
             
-            items.append(item)
-            
-        self.match_model.clear()
-        for item in items:
             self.match_model.appendRow(item)
-            
-            #print(match)
-            
+
+
         self.informationLabel.setText(number_of_items + " items")
         self.setDisabled(False)
 
@@ -173,18 +174,12 @@ class listViewPopulateWorker(QObject):
         self.finished.emit(signal_tuple)
     
 
-app = QtWidgets.QApplication([])
+# app = QtWidgets.QApplication([])
 
-widget = morningstarEquityCreatorWidget()
-widget.populate_listView_task()
-widget.show()
+# widget = morningstarEquityCreatorWidget()
+# widget.show()
 
-#widget.populate_listView()
-
-# widget.setDisabled(False)
-# widget.setEnabled(True)
-
-app.exec()
+# app.exec()
     
         
         
