@@ -12,6 +12,11 @@ import numpy as np
 import analysis_functions
 __MINDATE = datetime.datetime(1900,1, 1)
 
+BY_VALUE = 0
+BY_UNITS = 1
+BY_PROPORTION_OF_EQUITY_HOLDING = 2
+BY_PROPORTION_OF_CASH_HOLDING = 3
+
 class TransactionHistory:
     def __init__(self):
         self.transaction_data = pd.DataFrame({"date":[],
@@ -22,6 +27,8 @@ class TransactionHistory:
                                               "value":[]})
         
         self.equity_dict = equity.EquityDict()
+        
+        self.current_portfolio = None
         
         
 
@@ -70,38 +77,56 @@ class TransactionHistory:
             raise TypeError("Pass an equity or fund to Portfolio")
             return   
     
-    def buy_equity(self,new_equity,units,date,price = None):
+    def buy_equity(self,equity,date, method = BY_VALUE, units = None, value = None, proportion_of_cash_to_buy = None):
         """
-        Buys an equity at the date specified.
+        Buy an equity on a given dates. This method operates via two methods:
+            BUY_EQUITY_BY_VALUE: Buys the given equity at the total value given by 'value'.
+            BUY_EQUITY_BY_UNITS: Buys the given units of the equity, given by 'units'
 
         Parameters
         ----------
-        new_equity : equity.Equity
+        quity : equity.Equity
             Equity to buy.
-        units : int or float
-            Number of units to buy.
         date : datetime.datetime
             The date to make the transaction on.
-        price : int, optional
-            If set, will override the price obtained using the date. The default is None.
+        method : int, optional
+            DESCRIPTION. The default is BUY_EQUITY_BY_VALUE.
+        units : numeric, optional
+            Number of units to buy. The default is None.
+        value : numeric, optional
+            DESCRIPTION. The default is None.
 
         Returns
         -------
         None.
 
         """
+        
+        
+        self.__equity_type_check(equity)
+        
+        
+        self.equity_dict.add(equity)
+        price = equity.get_data(date,date).iloc[0][0] #will be in pence!
+
+        if(method == BY_VALUE):
             
-        self.__equity_type_check(new_equity)
-        
-        
-        self.equity_dict.add(new_equity)
-        if(price == None):
-            price = new_equity.get_data(date,date).iloc[0][0] #will be in pence!
+            #equity_price_data = new_equity.get_data(date,date)  #value in GBp
+            #date = equity_price_data[equity.name].index[0]
+            #equity_price = equity_price_data[equity.name][date]
+            #units = value/equity_price
+            units = value/price
+        elif(method == BY_UNITS):
+            units = units
+        elif(method == BY_PROPORTION_OF_CASH_HOLDING):
+            need to work out cash value...
+        else:
+            return
 
         cash_value = -1 * units * price #negative as cash is going down
         
-        new_equity_name = new_equity.name
-        buy_transaction = {"equity": new_equity_name, 
+
+        buy_transaction = {"equity": equity.name, 
                            "action":"buy_equity", 
                            "units": units,
                            "date":date,
@@ -109,10 +134,12 @@ class TransactionHistory:
                            "value":(cash_value)}
       
         self.transaction_data = self.transaction_data.append(buy_transaction,ignore_index=True)
+        
+        self.current_portfolio = self.portfolio()
 
         
             
-    def sell_equity(self,new_equity,units,date,price = None):      
+    def sell_equity(self,equity,date, method = BY_VALUE, units_to_sell = None,value_to_sell = None, proportion_to_sell = None):      
         """
         Sells an equity at the date specified.
 
@@ -133,27 +160,46 @@ class TransactionHistory:
         None.
 
         """
-        self.__equity_type_check(new_equity)
-        self.equity_dict.add(new_equity)
+        self.__equity_type_check(equity)
+        self.equity_dict.add(equity)
+        price = equity.get_close(date).iloc[0][0]  #will be in pence!
         
+        currently_held_units = self.current_portfolio[equity]
+        currently_held_value= currently_held_units * price
         
-        
-        if(price == None):
-            price = new_equity.get_close(date).iloc[0][0]  #will be in pence!
+        if(method == BY_VALUE):
+            if(currently_held_value < value_to_sell):
+                units_to_sell = currently_held_units #sell all
+            else:
+                units_to_sell = value_to_sell/price 
+        elif(method == BY_UNITS):
+            if(currently_held_units < units_to_sell):
+                units_to_sell = currently_held_units #sell all
+            else:
+               units_to_sell = units_to_sell 
+        elif(method == BY_PROPORTION_OF_EQUITY_HOLDING):
+            if(proportion_to_sell < 0):
+                proportion_to_sell = 0
+            elif(proportion_to_sell > 1):
+                proportion_to_sell = 1
+            units_to_sell = proportion_to_sell * (value_to_sell/price)     
             
-        new_equity_name = new_equity.name
+        else:
+            return
+            
 
-        cash_value = units * price
+        cash_value = units_to_sell * price
         
-        sell_transaction = {"equity": new_equity_name, 
+        sell_transaction = {"equity": equity.name, 
                             "action":"sell_equity", 
-                            "units": units,
+                            "units": units_to_sell,
                             "date":date,
                             "price per unit":price,
                             "value":cash_value}
 
         self.transaction_data = self.transaction_data.append(sell_transaction,ignore_index=True)
-
+        
+        self.current_portfolio = self.portfolio()
             
     def add_cash(self,units,date):
         """
